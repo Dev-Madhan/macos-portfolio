@@ -41,22 +41,18 @@ body {
   }
 
   nav {
-    @apply h-8 flex justify-between items-center bg-white/20 backdrop-blur-2xl px-5 py-2 select-none text-[13px] border-b border-white/10 shadow-sm z-100 font-inter;
+    @apply sticky top-0 w-full h-8 flex justify-between items-center bg-white/20 backdrop-blur-2xl px-4 select-none text-[13px] border-b border-white/10 shadow-sm z-100 font-inter;
 
     div {
-      @apply flex items-center gap-4;
+      @apply flex items-center;
 
       &:first-child {
         @apply font-bold text-black font-mona;
       }
-
-      &:last-child {
-        @apply items-center gap-3 max-sm:hidden;
-      }
     }
 
     ul {
-      @apply flex items-center gap-4 max-sm:hidden;
+      @apply flex items-center gap-4;
 
       li {
         @apply cursor-pointer hover:bg-white/30 px-2 py-0.5 rounded-md transition-all text-black;
