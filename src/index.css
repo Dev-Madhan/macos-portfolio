@@ -86,14 +86,14 @@ body {
     }
 
     .tooltip {
-      @apply !py-1 !px-3 !w-fit !text-center !text-xs !rounded-md !bg-blue-200 !text-blue-900 !shadow-2xl;
+      @apply !py-1.5 !px-3.5 !w-fit !text-center !text-xs !rounded-lg !bg-black/40 !backdrop-blur-2xl !border-2 !border-white/20 !text-white !shadow-2xl !tracking-wide;
     }
 
     .dock-icon {
-      @apply size-14 3xl:size-20 cursor-pointer;
+      @apply size-14 3xl:size-20 cursor-pointer origin-bottom will-change-transform;
 
       img {
-        @apply object-cover object-center;
+        @apply object-cover object-center hover:drop-shadow-2xl transition-all duration-300;
       }
     }
   }

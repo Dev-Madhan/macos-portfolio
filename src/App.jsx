@@ -1,4 +1,4 @@
-import { Navbar, Welcome } from '#components'
+import { Dock, Navbar, Welcome } from '#components'
 import React from 'react'
 import { motion } from 'framer-motion'
 
@@ -14,6 +14,7 @@ const App = () => {
       >
         <Welcome />
       </motion.div>
+      <Dock />
     </main>
   )
 }
