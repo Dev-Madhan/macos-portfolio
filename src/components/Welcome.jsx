@@ -1,6 +1,7 @@
 import { useGSAP } from '@gsap/react'
 import React, { useRef } from 'react'
 import gsap from 'gsap'
+import { TextEffect } from './motion-primitives/text-effect'
 
 const FONT_WEIGHTS = {
     subtitle: { min: 100, max: 400, default: 100 },
@@ -78,11 +79,13 @@ const Welcome = () => {
 
     return (
         <section id="welcome" className="w-full text-center">
-            <p ref={subtitleRef} className="w-full max-w-xs md:max-w-none mx-auto leading-tight">{renderText("Designing intuitive experiences that users loves",
-                "text-xl sm:text-2xl md:text-3xl font-georama",
-                200
-            )}
-            </p>
+            <div ref={subtitleRef} className="w-full max-w-xs md:max-w-none mx-auto leading-tight">
+                <TextEffect as="p" preset='fade-in-blur' per="char" speedReveal={1.5} speedSegment={0.5} 
+                    charClassName="letter text-xl sm:text-2xl md:text-3xl font-georama" 
+                    charStyle={{ fontVariationSettings: "'wght' 200" }}>
+                    Designing intuitive experiences that users loves
+                </TextEffect>
+            </div>
             <h1 ref={titleRef} className='mt-3 sm:mt-4 leading-none'>
                 {renderText("Sruthika",
                     "text-6xl sm:text-7xl md:text-9xl italic font-georama"

@@ -45,10 +45,6 @@ body {
 
     div {
       @apply flex items-center;
-
-      &:first-child {
-        @apply font-bold text-black font-mona;
-      }
     }
 
     ul {
