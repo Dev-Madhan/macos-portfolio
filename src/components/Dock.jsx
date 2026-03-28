@@ -3,25 +3,27 @@ import { useGSAP } from '@gsap/react';
 import React, { useRef } from 'react'
 import { Tooltip } from 'react-tooltip';
 import gsap from 'gsap';
+import useWindowStore from '../store/window';
 
 // macOS dock magnification constants
 const BASE_SIZE = 56;    // px – matches size-14 (3.5rem)
-const MAX_SIZE  = 96;    // px – peak size when cursor is dead-centre
-const SPREAD    = 60;    // px – Gaussian σ: tighter = fewer icons affected
-const CUTOFF    = 130;   // px – beyond this distance, icon stays at scale 1
+const MAX_SIZE = 96;    // px – peak size when cursor is dead-centre
+const SPREAD = 60;    // px – Gaussian σ: tighter = fewer icons affected
+const CUTOFF = 130;   // px – beyond this distance, icon stays at scale 1
 
 /**
  * Gaussian scale: smoothly peaks at MAX_SIZE/BASE_SIZE when dist=0,
  * and returns exactly 1 when dist >= CUTOFF.
  */
 function gaussianScale(dist) {
-  if (dist >= CUTOFF) return 1;
-  const maxScale = MAX_SIZE / BASE_SIZE;  // ≈ 1.714
-  const t = Math.exp(-(dist * dist) / (2 * SPREAD * SPREAD));
-  return 1 + (maxScale - 1) * t;
+    if (dist >= CUTOFF) return 1;
+    const maxScale = MAX_SIZE / BASE_SIZE;  // ≈ 1.714
+    const t = Math.exp(-(dist * dist) / (2 * SPREAD * SPREAD));
+    return 1 + (maxScale - 1) * t;
 }
 
 const Dock = () => {
+    const { openWindow, closeWindow, windows } = useWindowStore();
     const dockRef = useRef(null);
 
     const { contextSafe } = useGSAP({ scope: dockRef });
@@ -36,9 +38,9 @@ const Dock = () => {
         icons.forEach((icon) => {
             const rect = icon.getBoundingClientRect();
             const center = rect.left + rect.width / 2;
-            const dist   = Math.abs(mouseX - center);
+            const dist = Math.abs(mouseX - center);
 
-            const scale  = gaussianScale(dist);
+            const scale = gaussianScale(dist);
             // Y shift: lift proportionally so icon stays anchored at bottom
             const yShift = -(scale - 1) * BASE_SIZE * 0.55;
 
@@ -70,7 +72,18 @@ const Dock = () => {
         });
     });
 
-    const toggleApp = (app) => { }
+    const toggleApp = (app) => {
+        if (!app.canOpen) return;
+        const window = windows[app.id];
+
+        if (window.isOpen) {
+            closeWindow(app.id);
+        } else {
+            openWindow(app.id);
+        }
+
+        console.log(windows);
+    }
 
     return (
         <div id="dock">

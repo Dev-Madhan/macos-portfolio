@@ -1,0 +1,48 @@
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\App.jsx
+  3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\components\Dock.jsx
+  31:41  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+  29 |     const { contextSafe } = useGSAP({ scope: dockRef });
+  30 |
+> 31 |     const handleMouseMove = contextSafe((e) => {
+     |                                         ^^^^^^^^
+> 32 |         const dock = dockRef.current;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 33 |         if (!dock) return;
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 55 |         });
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 56 |     });
+     | ^^^^^^ Passing a ref to a function may read its value during render
+  57 |
+  58 |     const resetIcons = contextSafe(() => {
+  59 |         const dock = dockRef.current;  react-hooks/refs
+  58:36  error  Error: Cannot access refs during render
+
+React refs are values that are not needed for rendering. Refs should only be accessed outside of render, such as in event handlers or effects. Accessing a ref value (the `current` property) during render can cause your component not to update as expected (https://react.dev/reference/react/useRef).
+
+  56 |     });
+  57 |
+> 58 |     const resetIcons = contextSafe(() => {
+     |                                    ^^^^^^^
+> 59 |         const dock = dockRef.current;
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 60 |         if (!dock) return;
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 72 |         });
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 73 |     });
+     | ^^^^^^ Passing a ref to a function may read its value during render
+  74 |
+  75 |     const toggleApp = (app) => {
+  76 |         if (!app.canOpen) return;                                                                             react-hooks/refs
+
+✖ 3 problems (3 errors, 0 warnings)
+
