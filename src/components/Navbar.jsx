@@ -11,7 +11,7 @@ const Navbar = () => {
         <p className="font-bold text-[13px] font-mona tracking-tight flex items-center">
           Sruthika<span className="hidden sm:inline">'s Portfolio</span>
         </p>
-        
+
         {/* Desktop Links - hidden on mobile */}
         <ul className="ml-4 hidden md:flex items-center">
           {navLinks.map(({ id, name }) => (
@@ -32,7 +32,7 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
-        
+
         {/* Time - Always visible but more compact on mobile */}
         <time className="text-[13px] font-semibold opacity-90">
           {dayjs().format("ddd MMM D h:mm A")}
