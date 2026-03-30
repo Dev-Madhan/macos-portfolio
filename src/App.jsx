@@ -1,10 +1,14 @@
-import { Dock, Navbar, Welcome } from '#components'
 import React from 'react'
+import gsap from 'gsap';
+import { Dock, Navbar, Welcome } from '#components'
 import { motion } from 'framer-motion'
+import { Draggable } from 'gsap/Draggable';
+import { Terminal } from '#windows';
+gsap.registerPlugin(Draggable);
 
 const App = () => {
   return (
-    <main>
+    <main id="main-screen">
       <Navbar />
       <motion.div
         className="size-full absolute inset-0"
@@ -15,6 +19,10 @@ const App = () => {
         <Welcome />
       </motion.div>
       <Dock />
+
+      <div className='hidden md:block'>
+          <Terminal />
+      </div>
     </main>
   )
 }

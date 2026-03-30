@@ -100,28 +100,28 @@ const blogPosts = [
 
 const techStack = [
   {
-    category: "Frontend",
-    items: ["React.js", "Next.js", "TypeScript"],
+    category: "Design Software",
+    items: ["Figma", "Sketch", "Adobe XD"],
   },
   {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
+    category: "Prototyping",
+    items: ["Protopie", "Framer", "InVision"],
   },
   {
-    category: "Styling",
-    items: ["Tailwind CSS", "Sass", "CSS"],
+    category: "User Research",
+    items: ["Miro", "FigJam", "Maze"],
   },
   {
-    category: "Backend",
-    items: ["Node.js", "Express", "NestJS", "Hono"],
+    category: "Visual Content",
+    items: ["Photoshop", "Illustrator", "After Effects"],
   },
   {
-    category: "Database",
-    items: ["MongoDB", "PostgreSQL"],
+    category: "Design Systems",
+    items: ["Tokens Studio", "Storybook", "Zeplin"],
   },
   {
-    category: "Dev Tools",
-    items: ["Git", "GitHub", "Docker"],
+    category: "Web Building",
+    items: ["Webflow", "Framer Sites", "HTML/CSS"],
   },
 ];
 
@@ -131,28 +131,28 @@ const socials = [
     text: "Github",
     icon: "/icons/github.svg",
     bg: "#f4656b",
-    link: "https://github.com/JavaScript-Mastery-Pro",
+    link: "https://github.com/",
   },
   {
     id: 2,
-    text: "Platform",
+    text: "Portfolio",
     icon: "/icons/atom.svg",
     bg: "#4bcb63",
-    link: "https://jsmastery.com/",
+    link: "https://yourportfolio.com/",
   },
   {
     id: 3,
     text: "Twitter/X",
     icon: "/icons/twitter.svg",
     bg: "#ff866b",
-    link: "https://x.com/jsmasterypro",
+    link: "https://x.com/",
   },
   {
     id: 4,
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#05b6f6",
-    link: "https://www.linkedin.com/company/javascriptmastery/posts/?feedView=all",
+    link: "https://www.linkedin.com/",
   },
 ];
 
@@ -238,9 +238,9 @@ const WORK_LOCATION = {
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "The JBL website redesign is a bold and immersive project aimed at delivering a premium audio shopping experience.",
-            "It features high-fidelity product visuals, a dynamic dark theme, and a sleek user interface designed for audiophiles.",
-            "Built with a focus on powerful aesthetics and smooth interactions, it truly captures the spirit of JBL’s legendary sound.",
+            "The JBL website redesign is a comprehensive UI/UX case study aimed at delivering a premium audio shopping experience.",
+            "I focused on user research, wireframing, and high-fidelity prototyping to craft a dynamic dark theme and sleek visual hierarchy.",
+            "By optimizing the user journey and creating interactive prototypes, I ensured a seamless and engaging experience for audiophiles.",
           ],
         },
         {
@@ -290,9 +290,9 @@ const WORK_LOCATION = {
           fileType: "txt",
           position: "top-5 right-10",
           description: [
-            "Vivid Lux is a modern eCommerce platform designed for a high-end lighting brand.",
-            "The site showcases a curated collection of unique lamps and light bulbs with a clean, minimalist aesthetic.",
-            "It emphasizes product discovery through specialized sections like 'Choose', 'Popular', and 'Products', providing a seamless journey from browsing to purchase.",
+            "Vivid Lux is a UI/UX design project for a modern eCommerce platform, specialized for a high-end lighting brand.",
+            "My design process involved creating comprehensive user personas, user flows, and a clean, minimalist design system.",
+            "I emphasized intuitive product discovery through clear navigation and refined micro-interactions, providing a seamless journey from browsing to checkout.",
           ],
         },
         {
@@ -342,9 +342,9 @@ const WORK_LOCATION = {
           fileType: "txt",
           position: "top-5 left-10",
           description: [
-            "Pattio is a vibrant and appetizing website dedicated to the ultimate burger experience.",
-            "The design features bold, high-quality visuals of juicy burgers and a warm, inviting color palette that makes every visitor crave a bite.",
-            "It focuses on a seamless user journey from exploring recipes to placing an order, truly capturing the essence of great, hot, and delicious food.",
+            "Pattio is a vibrant and appetizing UI/UX design concept dedicated to the ultimate burger experience.",
+            "The design strategy focused on accessible typography, high-contrast visual elements, and an inviting color palette.",
+            "I prioritized usability testing and iterative prototyping to refine the food ordering process, reducing friction and capturing the essence of great user experience.",
           ],
         },
         {
