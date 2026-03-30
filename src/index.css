@@ -41,7 +41,7 @@ body {
   }
 
   nav {
-    @apply sticky top-0 w-full h-8 flex justify-between items-center bg-white/20 backdrop-blur-2xl px-4 select-none text-[13px] border-b border-white/10 shadow-sm z-100 font-inter;
+    @apply sticky top-0 w-full h-8 flex justify-between items-center bg-white/20 backdrop-blur-2xl px-4 select-none text-[13px] border-b border-white/10 shadow-sm z-[100] font-inter;
 
     div {
       @apply flex items-center;
@@ -57,6 +57,18 @@ body {
 
     time {
       @apply text-[13px] font-semibold text-black;
+    }
+  }
+
+  #safari {
+    @apply absolute w-[740px] h-[520px] top-[80px] left-[calc(50%-370px)] bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter;
+
+    #window-header {
+      @apply h-11 bg-[#f6f6f6] border-b border-gray-200 flex items-center justify-between px-4 select-none;
+    }
+
+    h2 {
+      @apply font-semibold text-[13px] text-[#4d4d4d] text-center w-full font-inter;
     }
   }
 }

@@ -3,6 +3,7 @@ import WindowWrapper from '#hoc/WindowWrapper';
 import { techStack } from '#constants';
 import { Check, Flag } from 'lucide-react';
 import useWindowStore from '#store/window';
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 
 const Terminal = () => {
@@ -25,7 +26,7 @@ const Terminal = () => {
     };
 
     return <>
-        <div id="window-header">
+        <div id="window-header" className="window-header">
             <div id="window-controls">
                 <div className="close" onClick={() => closeWindow("terminal")}></div>
                 <div className="minimize"></div>

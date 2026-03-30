@@ -1,7 +1,9 @@
 import useWindowStore from '#store/window'
 import React, { useRef } from 'react'
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
-import gsap from 'gsap';
+// eslint-disable-next-line no-unused-vars
+import gsap from 'gsap'; 
 import { Draggable } from 'gsap/Draggable';
 import { useGSAP } from '@gsap/react';
 
@@ -16,7 +18,7 @@ const WindowWrapper = (Component, windowKey) => {
                 const dr = Draggable.create(ref.current, {
                     type: "top,left",
                     bounds: "#main-screen",
-                    handle: "#window-header",
+                    handle: ref.current.querySelector(".window-header"),
                     dragClickables: false, // Ensure clicks on buttons inside translate to the close function
                     onPress: () => focusWindow(windowKey),
                     zIndexBoost: false

@@ -15,6 +15,7 @@ export default defineConfig({
       "#store": path.resolve(__dirname, './src/store'),
       "#hoc": path.resolve(__dirname, './src/hoc'),
       "#windows": path.resolve(__dirname, './src/windows'),
+      "@": path.resolve(__dirname, './src'),
     },
   },
 })

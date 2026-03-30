@@ -80,21 +80,21 @@ const blogPosts = [
     date: "Mar 15, 2026",
     title: "The Psychology of Color in UI Design: Why It Matters",
     image: "/images/blog1.png",
-    link: "https://error-404-space-edition.netlify.app/",
+    link: "https://mockflow.com/blog/color-psychology-in-ui-design",
   },
   {
     id: 2,
     date: "Feb 28, 2026",
     title: "Mastering Auto Layout in Figma for Faster Workflows",
     image: "/images/blog2.png",
-    link: "https://error-404-space-edition.netlify.app/",
+    link: "https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout",
   },
   {
     id: 3,
     date: "Jan 10, 2026",
     title: "Principles of Minimalist UX Design for Modern Apps",
     image: "/images/blog3.png",
-    link: "https://error-404-space-edition.netlify.app/",
+    link: "https://ixdf.org/literature/topics",
   },
 ];
 
@@ -185,22 +185,10 @@ const photosLinks = [
 ];
 
 const gallery = [
-  {
-    id: 1,
-    img: "/images/gal1.png",
-  },
-  {
-    id: 2,
-    img: "/images/gal2.png",
-  },
-  {
-    id: 3,
-    img: "/images/gal3.png",
-  },
-  {
-    id: 4,
-    img: "/images/gal4.png",
-  },
+  { id: 1, img: "/images/gal1.png" },
+  { id: 2, img: "/images/gal2.png" },
+  { id: 3, img: "/images/gal3.png" },
+  { id: 4, img: "/images/gal4.png" },
 ];
 
 export {
@@ -213,6 +201,38 @@ export {
   photosLinks,
   gallery,
 };
+
+// Flattened projects for Finder
+export const projects = [
+  {
+    id: 1,
+    title: "JBL Redesign",
+    image: "/images/project-1.png",
+    category: "E-COMMERCE",
+    link: "https://jbl.com",
+  },
+  {
+    id: 2,
+    title: "Nike Store",
+    image: "/images/project-2.png",
+    category: "RETAIL",
+    link: "https://nike.com",
+  },
+  {
+    id: 3,
+    title: "Pattio App",
+    image: "/images/project-3.png",
+    category: "FOOD TECH",
+    link: "https://pattio.netlify.app/",
+  },
+  {
+    id: 4,
+    title: "Fintech Dashboard",
+    image: "/images/project-4.png",
+    category: "FINTECH",
+    link: "https://dashboard.com",
+  }
+];
 
 const WORK_LOCATION = {
   id: 1,

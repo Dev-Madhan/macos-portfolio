@@ -5,19 +5,14 @@ import { Tooltip } from 'react-tooltip';
 import gsap from 'gsap';
 import useWindowStore from '../store/window';
 
-// macOS dock magnification constants
-const BASE_SIZE = 56;    // px – matches size-14 (3.5rem)
-const MAX_SIZE = 96;    // px – peak size when cursor is dead-centre
-const SPREAD = 60;    // px – Gaussian σ: tighter = fewer icons affected
-const CUTOFF = 130;   // px – beyond this distance, icon stays at scale 1
+const BASE_SIZE = 56;
+const MAX_SIZE = 96;
+const SPREAD = 60;
+const CUTOFF = 130;
 
-/**
- * Gaussian scale: smoothly peaks at MAX_SIZE/BASE_SIZE when dist=0,
- * and returns exactly 1 when dist >= CUTOFF.
- */
 function gaussianScale(dist) {
     if (dist >= CUTOFF) return 1;
-    const maxScale = MAX_SIZE / BASE_SIZE;  // ≈ 1.714
+    const maxScale = MAX_SIZE / BASE_SIZE;
     const t = Math.exp(-(dist * dist) / (2 * SPREAD * SPREAD));
     return 1 + (maxScale - 1) * t;
 }
@@ -29,10 +24,7 @@ const Dock = () => {
     const { contextSafe } = useGSAP({ scope: dockRef });
 
     const handleMouseMove = contextSafe((e) => {
-        const dock = dockRef.current;
-        if (!dock) return;
-
-        const icons = Array.from(dock.querySelectorAll('.dock-icon'));
+        const icons = gsap.utils.toArray('.dock-icon');
         const mouseX = e.clientX;
 
         icons.forEach((icon) => {
@@ -41,7 +33,6 @@ const Dock = () => {
             const dist = Math.abs(mouseX - center);
 
             const scale = gaussianScale(dist);
-            // Y shift: lift proportionally so icon stays anchored at bottom
             const yShift = -(scale - 1) * BASE_SIZE * 0.55;
 
             gsap.to(icon, {
@@ -56,9 +47,7 @@ const Dock = () => {
     });
 
     const resetIcons = contextSafe(() => {
-        const dock = dockRef.current;
-        if (!dock) return;
-        const icons = dock.querySelectorAll('.dock-icon');
+        const icons = gsap.utils.toArray('.dock-icon');
 
         icons.forEach((icon) => {
             gsap.to(icon, {
@@ -72,27 +61,54 @@ const Dock = () => {
         });
     });
 
-    const toggleApp = (app) => {
-        if (!app.canOpen) return;
-        const window = windows[app.id];
+    const toggleApp = contextSafe((id, canOpen, element) => {
+        if (!canOpen) return;
+        
+        const windowState = windows[id];
 
-        if (window.isOpen) {
-            closeWindow(app.id);
+        // MacOS-style bounce animation
+        gsap.to(element, {
+            y: -20,
+            duration: 0.15,
+            yoyo: true,
+            repeat: 1,
+            ease: "power2.out"
+        });
+
+        if (windowState.isOpen) {
+            closeWindow(id);
         } else {
-            openWindow(app.id);
+            openWindow(id);
         }
-
-        console.log(windows);
-    }
+    });
 
     return (
         <div id="dock">
             <div ref={dockRef} className='dock-container' onMouseMove={handleMouseMove} onMouseLeave={resetIcons}>
                 {dockApps.map(({ id, name, icon, canOpen }) => (
-                    <div key={id} className='relative flex justify-center'>
-                        <button type='button' className='dock-icon' aria-label={name} data-tooltip-id='dock-tooltip' data-tooltip-content={name} data-tooltip-delay-show={150} disabled={!canOpen} onClick={() => toggleApp({ id, canOpen })}>
-                            <img src={`/images/${icon}`} alt={`${name} icon`} loading='lazy' className={canOpen ? '' : 'opacity-60'} />
+                    <div key={id} className='relative flex flex-col items-center group'>
+                        <button 
+                            type='button' 
+                            className='dock-icon' 
+                            aria-label={name} 
+                            data-tooltip-id='dock-tooltip' 
+                            data-tooltip-content={name} 
+                            data-tooltip-delay-show={150} 
+                            disabled={!canOpen} 
+                            onClick={(e) => toggleApp(id, canOpen, e.currentTarget)}
+                        >
+                            <img 
+                                src={`/images/${icon}`} 
+                                alt={`${name} icon`} 
+                                loading='lazy' 
+                                className={canOpen ? '' : 'opacity-60'} 
+                            />
                         </button>
+                        
+                        {/* MacOS Active Indicator Dot */}
+                        {windows[id]?.isOpen && (
+                            <div className="absolute -bottom-1.5 size-1 rounded-full bg-[#3c3c3c]/80 shadow-[0_0_2px_rgba(255,255,255,0.5)]" />
+                        )}
                     </div>
                 ))}
 

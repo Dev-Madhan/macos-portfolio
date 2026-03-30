@@ -1,9 +1,10 @@
 import React from 'react'
 import gsap from 'gsap';
 import { Dock, Navbar, Welcome } from '#components'
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
-import { Terminal } from '#windows';
+import { Terminal, Safari, Finder } from '#windows';
 gsap.registerPlugin(Draggable);
 
 const App = () => {
@@ -22,6 +23,8 @@ const App = () => {
 
       <div className='hidden md:block'>
           <Terminal />
+          <Safari />
+          <Finder />
       </div>
     </main>
   )
