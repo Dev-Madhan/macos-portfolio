@@ -244,7 +244,7 @@ const WORK_LOCATION = {
     // ▶ Project 1
     {
       id: 5,
-      name: "JBL Website Redesign",
+      name: "JBL Redesign",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-5", // icon position inside Finder
@@ -296,7 +296,7 @@ const WORK_LOCATION = {
     // ▶ Project 2
     {
       id: 6,
-      name: "Vivid Lux - Ecommerce Lamp Website",
+      name: "Vivid Lux",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-52 right-80",
@@ -348,7 +348,7 @@ const WORK_LOCATION = {
     // ▶ Project 3
     {
       id: 7,
-      name: "Pattio - Delicious Burger Website",
+      name: "Pattio - Burger Website",
       icon: "/images/folder.png",
       kind: "folder",
       position: "top-10 left-80",
@@ -413,7 +413,7 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-10 left-5",
-      imageUrl: "/images/sruthika-1.jpg",
+      imageUrl: "/images/sruthika-2.jpg.jpeg",
     },
     {
       id: 2,
@@ -422,16 +422,25 @@ const ABOUT_LOCATION = {
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/sruthika-2.jpg.jpeg",
+      imageUrl: "/images/sruthika-1.jpg",
     },
     {
       id: 3,
-      name: "conference-me.png",
+      name: "childhood-me.png",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
       position: "top-52 left-80",
-      imageUrl: "/images/sruthika-1.jpg",
+      imageUrl: "/images/childhood-me.jpeg",
+    },
+    {
+      id: 5,
+      name: "childhood-grp.png",
+      icon: "/images/image.png",
+      kind: "file",
+      fileType: "img",
+      position: "bottom-10 right-5",
+      imageUrl: "/images/childhood-grp.jpeg",
     },
     {
       id: 4,

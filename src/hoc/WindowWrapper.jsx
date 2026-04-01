@@ -10,7 +10,7 @@ import { useGSAP } from '@gsap/react';
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
         const { focusWindow, windows } = useWindowStore();
-        const { isOpen, zIndex } = windows[windowKey];
+        const { isOpen, zIndex, data } = windows[windowKey];
         const ref = useRef(null);
 
         useGSAP(() => {
@@ -46,7 +46,7 @@ const WindowWrapper = (Component, windowKey) => {
                                 ease: [0.12, 0, 0.39, 0]
                             }}
                         >
-                            <Component {...props} />
+                            <Component {...props} item={data} />
                         </motion.div>
                     </section>
                 )}

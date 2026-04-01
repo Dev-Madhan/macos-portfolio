@@ -1,0 +1,23 @@
+
+> sruthika-portfolio@0.0.0 lint
+> eslint .
+
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\components\ui\sidebar.jsx
+  657:3  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\store\location.js
+  1:20  error  'require' is not defined    no-undef
+  2:19  error  'require' is not defined    no-undef
+  4:26  error  'locations' is not defined  no-undef
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\windows\Finder.jsx
+   5:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                        no-unused-vars
+  36:7   error  Fast refresh only works when a file only exports components. Move your component(s) to a separate file. If all exports are HOCs, add them to the `extraHOCs` option  react-refresh/only-export-components
+
+D:\Madhan Kumar\Web Development Projects\sruthika-portfolio\src\windows\ImageViewer.jsx
+   3:10  error  'motion' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                        no-unused-vars
+  21:7   error  Fast refresh only works when a file only exports components. Move your component(s) to a separate file. If all exports are HOCs, add them to the `extraHOCs` option  react-refresh/only-export-components
+
+✖ 8 problems (8 errors, 0 warnings)
+

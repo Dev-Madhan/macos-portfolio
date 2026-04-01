@@ -21,6 +21,15 @@ body {
   --font-outfit: "Outfit", sans-serif;
   --font-roboto: "Roboto Mono", monospace;
   --breakpoint-3xl: 1920px;
+
+  --sidebar: #f6f6f6;
+  --sidebar-foreground: #3f3f46;
+  --sidebar-primary: #18181b;
+  --sidebar-primary-foreground: #fafafa;
+  --sidebar-accent: #e4e4e7;
+  --sidebar-accent-foreground: #18181b;
+  --sidebar-border: #e4e4e7;
+  --sidebar-ring: #3b82f6;
 }
 
 @utility flex-center {
@@ -344,7 +353,10 @@ body {
   }
 
   #finder {
-    @apply absolute w-[768px] left-40 top-20 shadow-2xl drop-shadow-2xl overflow-hidden rounded-xl;
+    @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter border border-white/20;
+    @apply w-[calc(100vw-32px)] h-[70vh] top-16 left-4;
+    @apply md:w-[calc(100vw-64px)] md:h-[65vh] md:top-24 md:left-8;
+    @apply lg:w-[940px] lg:h-[620px] lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2;
 
     .sidebar {
       @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
@@ -400,21 +412,9 @@ body {
   }
 
   #imgfile {
-    @apply w-[576px] absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
-
-    #window-header {
-      p {
-        @apply font-bold text-[#5f6266];
-      }
-    }
-
-    .preview {
-      @apply p-2 bg-gray-200 max-h-[70vh];
-
-      img {
-        @apply w-full h-fit object-contain object-center;
-      }
-    }
+    @apply absolute bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[calc(100vw-32px)] h-[75vh] top-16 left-4;
+    @apply md:w-[680px] md:h-[580px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2;
   }
 
   #home {
