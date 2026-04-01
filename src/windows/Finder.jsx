@@ -297,19 +297,21 @@ const Finder = () => {
                                     {filteredChildren.map((item) => (
                                         <div 
                                             key={`${currentFolder.id}-${item.id}`} 
-                                            className="finder-item flex flex-col items-center justify-center gap-3 group cursor-default border-2 border-gray-100 hover:border-blue-200 hover:shadow-[0_4px_20px_-4px_rgba(59,130,246,0.12)] hover:bg-blue-50/40 bg-white rounded-xl p-4 transition-colors duration-200"
+                                            className="finder-item flex flex-col items-center justify-start gap-1 group cursor-default p-2 pt-3 rounded-lg hover:bg-gray-100/80 active:bg-blue-100/50 transition-colors duration-150"
                                             onClick={() => handleItemClick(item)}
                                         >
-                                            <div className="relative">
+                                            <div className="w-16 h-16 flex items-center justify-center mb-1 bg-transparent">
                                                 <img 
                                                     src={item.icon} 
                                                     alt={item.name} 
-                                                    className="w-12 h-12 object-contain group-active:scale-95 group-hover:-translate-y-1 transition-transform duration-300 pointer-events-none" 
+                                                    className="w-12 h-12 object-contain group-active:scale-95 transition-transform duration-200 pointer-events-none drop-shadow-sm" 
                                                 />
                                             </div>
-                                            <p className="text-[12px] font-medium text-gray-700 group-hover:text-blue-600 transition-colors duration-200 text-center leading-tight line-clamp-2 px-1 max-w-[100px] break-all">
-                                                {item.name}
-                                            </p>
+                                            <div className="w-full h-[32px] flex items-start justify-center overflow-hidden">
+                                                <p className="text-[12px] font-medium text-gray-700 group-hover:text-black transition-colors duration-200 text-center leading-tight break-words px-0.5 w-[110px] line-clamp-2">
+                                                    {item.name}
+                                                </p>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
