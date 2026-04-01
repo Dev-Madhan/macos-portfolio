@@ -33,12 +33,68 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar";
 
+const TAG_COLORS = [null, '#ff6b6b', '#ffb347', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
+
 const Finder = () => {
     const { closeWindow, openWindow } = useWindowStore();
     const [currentFolder, setCurrentFolder] = useState(locations.work);
-    const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'list'
+    const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
+    const [isMaximized, setIsMaximized] = useState(false);
+    const [tagColor, setTagColor] = useState(null);
+    const [tagIdx, setTagIdx] = useState(0);
+    const [showMoreMenu, setShowMoreMenu] = useState(false);
+    const [hoveredMenuItem, setHoveredMenuItem] = useState(null);
+    const [toast, setToast] = useState(null);
     const contentRef = useRef(null);
+
+    // Navigation history
+    const [history, setHistory] = useState([locations.work]);
+    const [historyIdx, setHistoryIdx] = useState(0);
+    const canGoBack = historyIdx > 0;
+    const canGoForward = historyIdx < history.length - 1;
+
+    const navigateTo = (folder) => {
+        const newHistory = history.slice(0, historyIdx + 1);
+        newHistory.push(folder);
+        setHistory(newHistory);
+        setHistoryIdx(newHistory.length - 1);
+        setCurrentFolder(folder);
+        setSearchQuery('');
+    };
+
+    const goBack = () => {
+        if (!canGoBack) return;
+        const idx = historyIdx - 1;
+        setHistoryIdx(idx);
+        setCurrentFolder(history[idx]);
+        setSearchQuery('');
+    };
+
+    const goForward = () => {
+        if (!canGoForward) return;
+        const idx = historyIdx + 1;
+        setHistoryIdx(idx);
+        setCurrentFolder(history[idx]);
+        setSearchQuery('');
+    };
+
+    const showToast = (msg) => {
+        setToast(msg);
+        setTimeout(() => setToast(null), 2200);
+    };
+
+    const handleShare = () => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => showToast('🔗 Link copied to clipboard!'));
+    };
+
+    const handleTag = () => {
+        const next = (tagIdx + 1) % TAG_COLORS.length;
+        setTagIdx(next);
+        setTagColor(TAG_COLORS[next]);
+        showToast(TAG_COLORS[next] ? '🏷️ Tag applied' : '🏷️ Tag removed');
+    };
 
     const favorites = [
       { id: 'about', label: 'About me', icon: User, folder: locations.about },
@@ -48,7 +104,6 @@ const Finder = () => {
 
     const workProjects = locations.work.children;
 
-    // Relative Date Formatter
     const getFormattedDate = () => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, '0');
@@ -56,7 +111,6 @@ const Finder = () => {
         return `Today, ${hours}:${minutes}`;
     };
 
-    // Filter children based on search query
     const filteredChildren = currentFolder?.children?.filter(item => 
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     ) || [];
@@ -66,118 +120,152 @@ const Finder = () => {
             const items = contentRef.current.querySelectorAll('.finder-item');
             gsap.fromTo(items, 
                 { opacity: 0, y: 15, scale: 0.95 },
-                { 
-                  opacity: 1, 
-                  y: 0, 
-                  scale: 1, 
-                  duration: 0.4, 
-                  stagger: 0.05, 
-                  ease: "power2.out",
-                  overwrite: "auto" 
-                }
+                { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.05, ease: "power2.out", overwrite: "auto" }
             );
         }
     }, [currentFolder, viewMode]);
 
     const handleItemClick = (item) => {
         if (item.kind === 'file') {
-            if (item.fileType === 'pdf') {
-                openWindow('resume');
-            } else if (item.fileType === 'url') {
-                window.open(item.href, '_blank');
-            } else if (item.fileType === 'txt') {
-                openWindow('txtfile', item);
-            } else if (item.fileType === 'fig') {
-                window.open(item.href, '_blank');
-            } else if (item.fileType === 'img') {
-                openWindow('imgfile', item);
-            }
+            if (item.fileType === 'pdf') openWindow('resume');
+            else if (item.fileType === 'url') window.open(item.href, '_blank');
+            else if (item.fileType === 'txt') openWindow('txtfile', item);
+            else if (item.fileType === 'fig') window.open(item.href, '_blank');
+            else if (item.fileType === 'img') openWindow('imgfile', item);
         } else if (item.kind === 'folder') {
-            setCurrentFolder(item);
+            navigateTo(item);
         }
     };
 
     return (
-        <div className="bg-[#ffffff] h-full flex flex-col font-inter select-none overflow-hidden rounded-xl shadow-2xl border border-white/20">
+        <div className={`bg-[#ffffff] flex flex-col font-inter select-none overflow-hidden rounded-xl shadow-2xl border border-white/20 transition-all duration-300 ${isMaximized ? 'fixed inset-0 z-[999] rounded-none' : 'h-full'}`}>
+            {/* Toast */}
+            <AnimatePresence>
+                {toast && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        className="absolute top-14 left-1/2 -translate-x-1/2 z-50 bg-black/80 text-white text-[12px] font-medium px-4 py-2 rounded-full backdrop-blur-xl shadow-lg border border-white/10 whitespace-nowrap pointer-events-none"
+                    >
+                        {toast}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             {/* Finder Toolbar */}
             <div id="window-header" className="window-header h-[52px] bg-[#f6f6f6] border-b border-gray-200/60 flex items-center px-4 gap-4 shrink-0 transition-colors duration-300">
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <button className="close" onClick={() => closeWindow("finder")}></button>
-                    <button className="minimize"></button>
-                    <button className="maximize"></button>
+                    <button className="close" onClick={() => closeWindow("finder")} title="Close" />
+                    <button className="minimize" onClick={() => closeWindow("finder")} title="Minimize" />
+                    <button className="maximize" onClick={() => setIsMaximized(v => !v)} title={isMaximized ? 'Restore' : 'Maximize'} />
                 </div>
 
                 {/* Navigation & View Group */}
                 <div className="flex items-center gap-6">
                     {/* Back/Forward */}
                     <div className="flex items-center gap-4 text-gray-400">
-                        <ChevronLeft size={18} strokeWidth={2.5} className="cursor-pointer hover:text-gray-600 transition-colors" onClick={() => setCurrentFolder(locations.work)} />
-                        <ChevronRight size={18} strokeWidth={2.5} className="opacity-50 cursor-default" />
+                        <ChevronLeft
+                            size={18} strokeWidth={2.5}
+                            className={`transition-colors ${canGoBack ? 'cursor-pointer hover:text-gray-600' : 'opacity-25 cursor-default'}`}
+                            onClick={goBack}
+                        />
+                        <ChevronRight
+                            size={18} strokeWidth={2.5}
+                            className={`transition-colors ${canGoForward ? 'cursor-pointer hover:text-gray-600' : 'opacity-25 cursor-default'}`}
+                            onClick={goForward}
+                        />
                     </div>
 
                     {/* View Switcher */}
                     <div className="flex bg-gray-200/50 p-0.5 rounded-md border border-gray-300/50 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]">
-                        <button 
-                            className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`}
-                            onClick={() => setViewMode('grid')}
-                        >
-                            <LayoutGrid size={13} strokeWidth={2.5} />
-                        </button>
-                        <button 
-                            className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`}
-                            onClick={() => setViewMode('list')}
-                        >
-                            <List size={13} strokeWidth={2.5} />
-                        </button>
-                        <button 
-                            className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'columns' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`}
-                            onClick={() => setViewMode('columns')}
-                        >
-                            <Columns size={13} strokeWidth={2.5} />
-                        </button>
-                        <button 
-                            className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'gallery' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`}
-                            onClick={() => setViewMode('gallery')}
-                        >
-                            <Square size={13} strokeWidth={2.5} />
-                        </button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('grid')}><LayoutGrid size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('list')}><List size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'columns' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('columns')}><Columns size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'gallery' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('gallery')}><Square size={13} strokeWidth={2.5} /></button>
                     </div>
                 </div>
 
                 {/* Path/Directory Name */}
                 <div className="flex-1 flex justify-center overflow-hidden text-center mx-2 pointer-events-none">
                     <AnimatePresence mode="wait">
-                        <motion.span 
+                        <motion.span
                             key={currentFolder?.id}
                             initial={{ opacity: 0, y: 5 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -5 }}
                             transition={{ duration: 0.15 }}
-                            className="text-[13px] font-bold text-gray-700 tracking-tight truncate"
+                            className="text-[13px] font-bold text-gray-700 tracking-tight truncate flex items-center gap-1.5"
                         >
+                            {tagColor && <span className="w-2.5 h-2.5 rounded-full shrink-0 inline-block" style={{ background: tagColor }} />}
                             {currentFolder?.name || 'Portfolio'}
                         </motion.span>
                     </AnimatePresence>
                 </div>
 
                 {/* Actions Group */}
-                <div className="hidden lg:flex items-center gap-1.5 text-gray-500">
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
+                <div className="hidden lg:flex items-center gap-1.5 text-gray-500 relative">
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" title="Share" onClick={handleShare}>
                         <Share size={15} strokeWidth={2} />
                     </button>
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
-                        <Tag size={15} strokeWidth={2} />
+                    <button
+                        className={`p-1.5 rounded-md transition-colors ${tagColor ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
+                        title="Tag"
+                        onClick={handleTag}
+                    >
+                        <Tag size={15} strokeWidth={2} style={tagColor ? { color: tagColor } : {}} />
                     </button>
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2">
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2" title="More options" onClick={() => setShowMoreMenu(v => !v)}>
                         <MoreHorizontal size={15} strokeWidth={2} />
                     </button>
+                    {/* More Menu Dropdown */}
+                    <AnimatePresence>
+                        {showMoreMenu && (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: -4 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.95, y: -4 }}
+                                transition={{ duration: 0.12 }}
+                                className="absolute top-9 right-2 w-[190px] bg-white rounded-xl shadow-xl border border-gray-200/80 z-50 py-1.5 px-1.5 text-[13px] text-gray-700 origin-top-right"
+                                onClick={(e) => e.stopPropagation()}
+                            >
+                                {[
+                                    { label: 'Sort by Name', action: () => showToast('Sorted by name') },
+                                    { label: 'Sort by Date', action: () => showToast('Sorted by date') },
+                                    { label: 'New Folder', action: () => showToast('📁 New folder created') },
+                                    { label: 'Get Info', action: () => showToast(`ℹ️ ${currentFolder?.name || 'Folder'} — ${filteredChildren.length} items`) },
+                                ].map((item) => (
+                                    <div
+                                        key={item.label}
+                                        className="relative px-1"
+                                        onMouseEnter={() => setHoveredMenuItem(item.label)}
+                                        onMouseLeave={() => setHoveredMenuItem(null)}
+                                    >
+                                        {hoveredMenuItem === item.label && (
+                                            <motion.div
+                                                layoutId="more-menu-hover"
+                                                className="absolute inset-0 bg-blue-500/10 border border-blue-500/20 rounded-lg z-0"
+                                                transition={{ type: 'spring', bounce: 0.15, duration: 0.4 }}
+                                            />
+                                        )}
+                                        <button
+                                            className="relative z-10 w-full text-left px-2 py-1.5 text-[13px] text-gray-700 font-medium rounded-lg"
+                                            onClick={() => { item.action(); setShowMoreMenu(false); }}
+                                        >
+                                            {item.label}
+                                        </button>
+                                    </div>
+                                ))}
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                     <div className="relative group">
                         <div className="absolute inset-y-0 left-2.5 flex items-center pointer-events-none">
                             <Search size={13} className={`${searchQuery ? 'text-blue-500' : 'text-gray-400'} transition-colors`} />
                         </div>
-                        <input 
-                            type="text" 
+                        <input
+                            type="text"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             className="bg-white border border-gray-300/60 rounded-[6px] py-1 pl-8 pr-3 text-[12px] w-32 focus:w-48 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400/50 transition-all duration-300 placeholder:text-gray-400 shadow-sm"
