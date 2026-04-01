@@ -2,22 +2,28 @@ import { navLinks } from '#constants';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import useWindowStore from '#store/window';
-import { Search, Wifi, User, SlidersHorizontal, Bluetooth, Sun, Check, Lock, LogOut, Settings2 } from 'lucide-react';
+import { Search, Wifi, SlidersHorizontal, Bluetooth, Check, Lock, LogOut, Settings2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
+import SpotlightSearch from './SpotlightSearch';
 
 const Navbar = () => {
   const { openWindow } = useWindowStore();
   const [activeMenu, setActiveMenu] = useState(null);
   const [wifiEnabled, setWifiEnabled] = useState(true);
-  const [brightness, setBrightness] = useState(80);
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
 
   const handleIconClick = (menu) => {
-    setActiveMenu(activeMenu === menu ? null : menu);
+    if (menu === 'search') {
+      setSpotlightOpen((prev) => !prev);
+      setActiveMenu(null);
+    } else {
+      setActiveMenu(activeMenu === menu ? null : menu);
+    }
   };
 
   return (
@@ -25,29 +31,12 @@ const Navbar = () => {
       {activeMenu && (
         <div className="fixed inset-0 z-[90]" onClick={() => setActiveMenu(null)} />
       )}
-      
-      {/* Spotlight Overlay separately rendered because it is screen-centered */}
-      <AnimatePresence>
-        {activeMenu === 'search' && (
-           <motion.div 
-             initial={{ opacity: 0, scale: 0.98, y: -20 }}
-             animate={{ opacity: 1, scale: 1, y: 0 }}
-             exit={{ opacity: 0, scale: 0.96, y: -10 }}
-             transition={{ duration: 0.15, ease: "easeOut" }}
-             className="fixed top-1/4 left-1/2 -translate-x-1/2 w-[650px] max-w-[90vw] bg-[#1a1a1a]/80 backdrop-blur-2xl rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)] border-2 border-white/10 pointer-events-auto overflow-hidden text-white z-[200] will-change-transform"
-             onClick={(e) => e.stopPropagation()}
-           >
-              <div className="flex items-center px-5 py-4 border-b border-white/10">
-                 <Search size={24} className="text-gray-400 mr-4" strokeWidth={2} />
-                 <input type="text" autoFocus placeholder="Spotlight Search" className="flex-1 bg-transparent outline-none text-[26px] font-light text-white placeholder:text-gray-500" />
-              </div>
-              <div className="bg-black/20 py-12 flex flex-col items-center justify-center gap-3 text-gray-500">
-                 <Search size={32} className="opacity-20" />
-                 <span className="text-sm font-medium">Type to search your Mac</span>
-              </div>
-           </motion.div>
-        )}
-      </AnimatePresence>
+
+      {/* ── Spotlight Search ─────────────────────────────────────────────────── */}
+      <SpotlightSearch
+        isOpen={spotlightOpen}
+        onClose={() => setSpotlightOpen(false)}
+      />
 
       <nav className="relative w-full h-[30px] flex justify-between items-center bg-black/20 backdrop-blur-2xl px-4 select-none border-b border-white/10 shadow-sm z-[100] font-inter text-white">
         {/* Left side: Logo & Title */}
@@ -81,13 +70,17 @@ const Navbar = () => {
             </li>
             <li 
               onClick={() => handleIconClick('user')}
-              className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'user' ? 'bg-white/30' : 'hover:bg-white/20'}`}
+              className={`p-0.5 rounded-full transition-colors active:scale-90 cursor-pointer ${activeMenu === 'user' ? 'ring-2 ring-white/50' : 'hover:ring-2 hover:ring-white/30'}`}
             >
-              <User size={15} className="opacity-95" strokeWidth={2.8} />
+              <img
+                src="/images/avatar.png"
+                alt="Sruthika"
+                className="w-[22px] h-[22px] rounded-full object-cover border border-white/20 shadow-sm"
+              />
             </li>
             <li 
               onClick={() => handleIconClick('search')}
-              className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'search' ? 'bg-white/30' : 'hover:bg-white/20'}`}
+              className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${spotlightOpen ? 'bg-white/30' : 'hover:bg-white/20'}`}
             >
               <Search size={15} className="opacity-95" strokeWidth={2.8} />
             </li>
@@ -128,12 +121,12 @@ const Navbar = () => {
                   {/* Networks List */}
                   <div className={cn("flex flex-col gap-[1px]", !wifiEnabled && "opacity-40 pointer-events-none")}>
                       {/* Active */}
-                      <div className="px-2 py-[7px] bg-blue-600/90 text-white rounded-md flex justify-between items-center cursor-pointer shadow-sm">
+                      <div className="px-2 py-[7px] bg-white/10 backdrop-blur-sm text-white rounded-md flex justify-between items-center cursor-pointer border-2 border-white/15 shadow-sm">
                          <div className="flex items-center gap-2">
-                             <Wifi size={14} strokeWidth={2.5} />
-                             <span className="text-[13px] font-medium leading-tight">Sruthika's Network</span>
+                             <Wifi size={14} strokeWidth={2.5} className="opacity-80" />
+                             <span className="text-[13px] font-semibold leading-tight">Sruthika's Network</span>
                          </div>
-                         <Check size={14} strokeWidth={3} className="text-white" />
+                         <Check size={14} strokeWidth={3} className="text-white/80" />
                       </div>
                       
                       {/* Divider */}
@@ -168,11 +161,13 @@ const Navbar = () => {
                   {/* User Profile Info Section */}
                   <div className="w-full flex items-start gap-4 px-1.5 py-3 ml-0">
                       <div className="relative shrink-0">
-                          <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#ff0080] via-[#7928ca] to-[#3b82f6] flex items-center justify-center text-white font-bold text-xl shadow-inner border-[1.5px] border-white/20">
-                              S
-                          </div>
-                          <div className="absolute -bottom-0 -right-0 w-3.5 h-3.5 bg-green-500 border-[2px] border-[#1a1a1a] rounded-full shadow-sm" />
-                      </div>
+                      <img
+                        src="/images/avatar.png"
+                        alt="Sruthika"
+                        className="w-11 h-11 rounded-full object-cover border-[1.5px] border-white/20 shadow-inner"
+                      />
+                      <div className="absolute -bottom-0 -right-0 w-3.5 h-3.5 bg-green-500 border-[2px] border-[#1a1a1a] rounded-full shadow-sm" />
+                  </div>
                       <div className="flex flex-col justify-start items-start min-w-0 flex-1 gap-1.5">
                           <div className="text-[14px] font-bold leading-none tracking-tight truncate text-white text-left">Sruthika</div>
                           <div className="text-[11px] text-gray-400 font-medium leading-tight tracking-wide text-left uppercase">UI/UX Designer</div>
