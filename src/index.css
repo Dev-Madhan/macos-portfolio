@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Outfit:wght@100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap");
 
 @import "tailwindcss";
 
@@ -20,6 +21,7 @@ body {
   --font-mona: "Mona Sans", sans-serif;
   --font-outfit: "Outfit", sans-serif;
   --font-roboto: "Roboto Mono", monospace;
+  --font-bricolage: "Bricolage Grotesque", sans-serif;
   --breakpoint-3xl: 1920px;
 
   --sidebar: #f6f6f6;
@@ -404,7 +406,7 @@ body {
   }
 
   #txtfile {
-    @apply w-[448px] absolute top-36 right-32 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;

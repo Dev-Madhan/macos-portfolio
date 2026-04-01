@@ -292,22 +292,22 @@ const Finder = () => {
                             viewMode === 'grid' ? (
                                 <div 
                                     ref={contentRef}
-                                    className="p-8 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-x-4 gap-y-10 h-fit"
+                                    className="p-6 md:p-8 grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6 h-fit"
                                 >
                                     {filteredChildren.map((item) => (
                                         <div 
                                             key={`${currentFolder.id}-${item.id}`} 
-                                            className="finder-item flex flex-col items-center gap-2 group cursor-default"
+                                            className="finder-item flex flex-col items-center justify-center gap-3 group cursor-default border-2 border-gray-100 hover:border-blue-200 hover:shadow-[0_4px_20px_-4px_rgba(59,130,246,0.12)] hover:bg-blue-50/40 bg-white rounded-xl p-4 transition-colors duration-200"
                                             onClick={() => handleItemClick(item)}
                                         >
-                                            <div className="relative p-1 rounded-lg group-hover:bg-gray-100/80 transition-colors">
+                                            <div className="relative">
                                                 <img 
                                                     src={item.icon} 
                                                     alt={item.name} 
-                                                    className="w-12 h-12 object-contain group-active:brightness-90 transition-all pointer-events-none" 
+                                                    className="w-12 h-12 object-contain group-active:scale-95 group-hover:-translate-y-1 transition-transform duration-300 pointer-events-none" 
                                                 />
                                             </div>
-                                            <p className="text-[12px] font-medium text-gray-800 text-center leading-tight line-clamp-2 px-1 max-w-[100px] break-all">
+                                            <p className="text-[12px] font-medium text-gray-700 group-hover:text-blue-600 transition-colors duration-200 text-center leading-tight line-clamp-2 px-1 max-w-[100px] break-all">
                                                 {item.name}
                                             </p>
                                         </div>

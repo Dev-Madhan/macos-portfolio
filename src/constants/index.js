@@ -453,7 +453,7 @@ const ABOUT_LOCATION = {
       image: "/images/sruthika-1.jpg",
       description: [
         "Hey! I’m Sruthika 👋, a UI/UX Designer who enjoys building sleek, interactive designs that actually work well.",
-        "I specialize in User Experience, Interaction Design, and Figma—and I love making things feel smooth, fast, and just a little bit delightful.",
+        "I specialize in User Experience, Interaction Design, and Figma and I love making things feel smooth, fast, and just a little bit delightful.",
         "I’m big on clean UI, good UX, and creating designs that don't even need a manual to understand.",
         "Outside of design work, you'll find me tweaking layouts at 2AM, sipping overpriced coffee, or impulse-buying gadgets I absolutely convinced myself I needed 😅",
       ],
