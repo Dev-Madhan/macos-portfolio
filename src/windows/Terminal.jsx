@@ -28,9 +28,9 @@ const Terminal = () => {
     return <>
         <div id="window-header" className="window-header">
             <div id="window-controls">
-                <div className="close" onClick={() => closeWindow("terminal")}></div>
-                <div className="minimize"></div>
-                <div className="maximize"></div>
+                <button className="close" onClick={() => closeWindow("terminal")}></button>
+                <button className="minimize"></button>
+                <button className="maximize"></button>
             </div>
             <h2 className='font-mona'>Tech Stack</h2>
             <div className='w-20'></div> {/* Space balance */}

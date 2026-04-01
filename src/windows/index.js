@@ -1,5 +1,5 @@
 import Terminal from "#windows/Terminal";
 import Safari from "#windows/Safari";
-import Finder from "#windows/Finder";
+import Resume from "#windows/Resume";
 
-export { Terminal, Safari, Finder };
+export { Terminal, Safari, Resume };

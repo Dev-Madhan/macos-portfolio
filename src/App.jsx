@@ -4,7 +4,7 @@ import { Dock, Navbar, Welcome } from '#components'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
-import { Terminal, Safari, Finder } from '#windows';
+import { Terminal, Safari, Resume } from '#windows';
 gsap.registerPlugin(Draggable);
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
       <div className='hidden md:block'>
           <Terminal />
           <Safari />
-          <Finder />
+          <Resume />
       </div>
     </main>
   )

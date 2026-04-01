@@ -12,9 +12,9 @@ const FinderWindow = () => {
             <div className="window-header h-[52px] bg-[#f2f1f0] border-b border-gray-200/60 flex items-center px-4 gap-6">
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <div className="close" onClick={() => closeWindow("finder")}></div>
-                    <div className="minimize"></div>
-                    <div className="maximize"></div>
+                    <button className="close" onClick={() => closeWindow("finder")}></button>
+                    <button className="minimize"></button>
+                    <button className="maximize"></button>
                 </div>
 
                 {/* Toolbar Items */}

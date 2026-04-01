@@ -1,8 +1,11 @@
 import { navIcons, navLinks } from '#constants';
 import dayjs from 'dayjs';
 import React from 'react';
+import useWindowStore from '#store/window';
 
 const Navbar = () => {
+  const { openWindow } = useWindowStore();
+
   return (
     <nav className="relative w-full h-8 flex justify-between items-center bg-white/20 backdrop-blur-2xl px-4 select-none border-b border-white/10 shadow-sm z-[100] font-inter text-black">
       {/* Left side: Logo & Title */}
@@ -14,8 +17,12 @@ const Navbar = () => {
 
         {/* Desktop Links - hidden on mobile */}
         <ul className="ml-4 hidden md:flex items-center">
-          {navLinks.map(({ id, name }) => (
-            <li key={id} className="cursor-pointer hover:bg-white/30 px-2.5 py-0.5 rounded-md transition-all text-[13px] font-medium">
+          {navLinks.map(({ id, name, type }) => (
+            <li 
+              key={id} 
+              onClick={() => openWindow(type)}
+              className="cursor-pointer hover:bg-white/30 px-2.5 py-0.5 rounded-md transition-all text-[13px] font-medium"
+            >
               {name}
             </li>
           ))}

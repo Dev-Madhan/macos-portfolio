@@ -60,17 +60,7 @@ body {
     }
   }
 
-  #safari {
-    @apply absolute w-[740px] h-[520px] top-[80px] left-[calc(50%-370px)] bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter;
 
-    #window-header {
-      @apply h-11 bg-[#f6f6f6] border-b border-gray-200 flex items-center justify-between px-4 select-none;
-    }
-
-    h2 {
-      @apply font-semibold text-[13px] text-[#4d4d4d] text-center w-full font-inter;
-    }
-  }
 }
 
 @layer components {
@@ -111,7 +101,11 @@ body {
   }
 
   #window-controls {
-    @apply flex gap-2;
+    @apply flex gap-2 items-center;
+
+    button {
+      @apply border-none outline-none appearance-none p-0 cursor-pointer transition-transform active:scale-90 touch-none;
+    }
 
     .close, .minimize, .maximize {
       @apply size-3.5 rounded-full flex items-center justify-center relative;
@@ -149,7 +143,10 @@ body {
   }
 
   #safari {
-    @apply w-[896px] absolute top-40 left-2/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter;
+    @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter;
+    @apply w-[calc(100vw-32px)] h-[80vh] top-12 left-4;
+    @apply md:w-[calc(100vw-64px)] md:h-[70vh] md:top-20 md:left-8;
+    @apply lg:w-[896px] lg:h-[600px] lg:top-32 lg:left-[calc(50%-448px)];
 
     .search {
       @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
@@ -337,7 +334,7 @@ body {
   }
 
   #resume {
-    @apply w-fit h-fit absolute top-16 left-7/12 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute top-20 left-1/2 -translate-x-1/2 z-50 rounded-xl overflow-hidden shadow-2xl drop-shadow-2xl;
 
     #window-header {
       h2 {
@@ -444,6 +441,31 @@ body {
           }
         }
       }
+    }
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.15);
+      border-radius: 20px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      transition: background-color 0.2s;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.4);
     }
   }
 }
