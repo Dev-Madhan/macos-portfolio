@@ -54,14 +54,14 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
         initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-        className="flex flex-col items-center mt-20 z-10 w-full"
+        className="flex flex-col items-center mt-12 sm:mt-20 z-10 w-full"
       >
-        <h2 className="text-[28px] text-white/90 font-medium tracking-wide flex items-center gap-x-1.5 translate-y-[-2px]">
+        <h2 className="text-xl sm:text-[28px] text-white/90 font-medium tracking-wide flex items-center gap-x-1.5 translate-y-[-2px]">
           <span>{weekday},</span>
           <span>{month}</span>
           <NumberFlow value={day} />
         </h2>
-        <div className="h-[120px] w-full flex items-center justify-center font-bold text-[100px] tracking-tight text-white/95 leading-none">
+        <div className="h-[80px] sm:h-[120px] w-full flex items-center justify-center font-bold text-7xl sm:text-[100px] tracking-tight text-white/95 leading-none">
           <NumberFlow 
             value={hours} 
             format={{ minimumIntegerDigits: 2 }} 
@@ -75,7 +75,7 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
       </motion.div>
 
       {/* User Login */}
-      <div className="login-card-anim absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
+      <div className="login-card-anim relative mt-16 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 flex flex-col items-center z-10">
         <img
           src="/images/sruthika-1.jpg"
           alt="Sruthika"
