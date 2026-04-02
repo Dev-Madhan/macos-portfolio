@@ -138,7 +138,7 @@ const socials = [
     text: "Instagram",
     icon: "/icons/instagram.svg",
     bg: "#e1306c",
-    link: "https://instagram.com/sruthika",
+    link: "https://www.instagram.com/sruthxxa__/",
   },
   {
     id: 3,
@@ -152,7 +152,7 @@ const socials = [
     text: "LinkedIn",
     icon: "/icons/linkedin.svg",
     bg: "#05b6f6",
-    link: "https://www.linkedin.com/",
+    link: "https://www.linkedin.com/in/sruthika-k-144389331/",
   },
 ];
 
