@@ -4,7 +4,7 @@ import { Dock, Navbar, Welcome, Home } from '#components'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
-import { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos } from '#windows';
+import { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos, Archive } from '#windows';
 gsap.registerPlugin(Draggable);
 
 const App = () => {
@@ -31,6 +31,7 @@ const App = () => {
         <TextFile />
         <Contact />
         <Photos />
+        <Archive />
       </div>
     </main>
   )

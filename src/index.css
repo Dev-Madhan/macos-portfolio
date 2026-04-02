@@ -703,6 +703,12 @@ body {
     @apply md:w-[680px] md:h-[580px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2;
   }
 
+  #trash {
+    @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-gray-200/50;
+    @apply w-[calc(100vw-32px)] h-[60vh] top-16 left-4;
+    @apply md:w-[600px] md:h-[450px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2;
+  }
+
   #home {
     @apply relative z-0 max-sm:hidden;
 

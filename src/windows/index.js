@@ -6,5 +6,6 @@ import ImageViewer from "#windows/ImageViewer";
 import TextFile from "#windows/text";
 import Contact from "#windows/Contact";
 import Photos from "#windows/Photos";
+import Archive from "#windows/Archive";
 
-export { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos };
+export { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos, Archive };
