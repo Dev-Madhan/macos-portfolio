@@ -170,7 +170,7 @@ const Contact = () => {
                         <span className="ct-badge-ring" aria-hidden />
                         <span className="ct-badge-inner">
                             <span className="ct-badge-live" />
-                            <span className="ct-badge-text">Available for work</span>
+                            <span className="ct-badge-text">Online</span>
                         </span>
                     </motion.div>
                 </motion.div>

@@ -264,47 +264,36 @@ body {
   #contact {
     @apply absolute font-mona font-medium;
     width: 640px;
-    height: 430px;
     top: 20vh;
     left: calc(50% - 320px);
   }
 
-  /* ── Root shell: liquid glass ── */
+  /* ── Root shell: Finder style ── */
   .ct-root {
     display: flex;
     flex-direction: column;
     height: 100%;
     border-radius: 14px;
     overflow: hidden;
-    background: rgb(240, 240, 242); /* solid fallback for hosted envs */
+    background: #ffffff;
     position: relative;
     z-index: 1;
     box-shadow:
       0 32px 80px rgba(0, 0, 0, 0.28),
-      0 0 0 1px rgba(255, 255, 255, 0.22);
-  }
-
-  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
-    .ct-root {
-      background: rgba(255, 255, 255, 0.62);
-      backdrop-filter: blur(48px) saturate(200%);
-      -webkit-backdrop-filter: blur(48px) saturate(200%);
-    }
+      0 0 0 1px rgba(0, 0, 0, 0.12);
   }
 
   /* ── Header ── */
   .ct-header {
-    background: rgba(255, 255, 255, 0.55) !important;
-    backdrop-filter: blur(32px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(32px) saturate(180%) !important;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.07) !important;
+    background: #f6f6f6 !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.10) !important;
   }
 
   .ct-title {
     font-size: 13px;
-    font-weight: 600;
-    color: #1c1c1e;
-    letter-spacing: -0.1px;
+    font-weight: 700;
+    color: #3a3a3a;
+    letter-spacing: -0.2px;
   }
 
   /* ── Two-column body ── */
@@ -326,7 +315,7 @@ body {
     padding: 28px 18px;
     position: relative;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.28);
+    background: #f6f6f6;
   }
 
   /* Avatar */
@@ -369,7 +358,7 @@ body {
   .ct-name {
     font-size: 16px;
     font-weight: 700;
-    color: #1c1c1e;
+    color: #1a1a1a;
     letter-spacing: -0.35px;
     line-height: 1.2;
   }
@@ -377,7 +366,7 @@ body {
   .ct-role {
     font-size: 11.5px;
     font-weight: 400;
-    color: #6c6c70;
+    color: #6e6e73;
     margin-top: 2px;
     letter-spacing: 0.01em;
   }
@@ -399,7 +388,7 @@ body {
     background-size: 200% auto;
     animation: ct-shimmer 2.5s linear infinite;
     z-index: 0;
-    opacity: 0.6;
+    opacity: 0.4;
   }
 
   .ct-badge-inner {
@@ -408,12 +397,11 @@ body {
     align-items: center;
     gap: 6px;
     padding: 4px 10px;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(52, 199, 89, 0.08);
+    border: 1px solid rgba(52, 199, 89, 0.2);
     border-radius: 20px;
     z-index: 1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
   .ct-badge-live {
@@ -429,7 +417,7 @@ body {
   .ct-badge-text {
     font-size: 11px;
     font-weight: 600;
-    color: #1a6f2c;
+    color: #2a7d3c;
     letter-spacing: 0.02em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -448,7 +436,7 @@ body {
   /* ── Vertical divider ── */
   .ct-divider {
     width: 1px;
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.10);
     flex-shrink: 0;
     align-self: stretch;
   }
@@ -467,20 +455,20 @@ body {
   /* Group label */
   .ct-group-label {
     font-size: 11px;
-    font-weight: 800;
-    color: #48484a;
+    font-weight: 700;
+    color: #8e8e93;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.09em;
     padding: 12px 4px 6px;
   }
 
   /* Card container */
   .ct-card {
-    background: rgba(255, 255, 255, 0.68);
-    border-radius: 11px;
+    background: #ffffff;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.07);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
     margin-bottom: 6px;
   }
 
@@ -491,7 +479,7 @@ body {
     gap: 10px;
     padding: 9px 12px;
     text-decoration: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.055);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     background: transparent;
     transition: background 0.13s ease;
 
@@ -501,11 +489,11 @@ body {
   .ct-row-link {
     cursor: pointer;
 
-    &:hover  { background: rgba(0, 0, 0, 0.03); }
-    &:active { background: rgba(0, 0, 0, 0.065); }
+    &:hover  { background: rgba(59, 130, 246, 0.06); }
+    &:active { background: rgba(59, 130, 246, 0.12); }
   }
 
-  /* Icon pill — subtle translucent tint, no solid colour */
+  /* Icon pill — Finder style */
   .ct-icon-pill {
     width: 28px;
     height: 28px;
@@ -515,10 +503,8 @@ body {
     justify-content: center;
     flex-shrink: 0;
     
-    background: rgba(0, 0, 0, 0.04);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.03);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #e9e9eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
   }
 
   /* Row body */
@@ -533,7 +519,7 @@ body {
   .ct-row-label {
     font-size: 10px;
     font-weight: 600;
-    color: #6c6c70;
+    color: #8e8e93;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     line-height: 1;
@@ -542,7 +528,7 @@ body {
   .ct-row-value {
     font-size: 13px;
     font-weight: 500;
-    color: #1c1c1e;
+    color: #1a1a1a;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -562,13 +548,13 @@ body {
 
   /* Chevron */
   .ct-chevron {
-    color: #8e8e93;
+    color: #b0b0b8;
     flex-shrink: 0;
     transition: color 0.13s, transform 0.2s;
   }
 
   .ct-row-link:hover .ct-chevron {
-    color: #48484a;
+    color: #007aff;
     transform: translate(1px, -1px);
   }
 
