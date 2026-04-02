@@ -566,7 +566,10 @@ body {
   }
 
   #photos {
-    @apply max-w-3xl absolute top-96 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter border border-white/20;
+    @apply w-[calc(100vw-32px)] h-[70vh] top-16 left-4;
+    @apply md:w-[calc(100vw-64px)] md:h-[65vh] md:top-24 md:left-8;
+    @apply lg:w-[940px] lg:h-[620px] lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2;
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -1121,5 +1124,23 @@ body {
   .spotlight-empty-sub {
     font-size: 12px;
     color: rgba(255,255,255,0.25);
+  }
+
+  /* Custom Scrollbar — macOS style */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  .custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.25);
+    background-clip: padding-box;
   }
 }

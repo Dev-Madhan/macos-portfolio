@@ -26,6 +26,8 @@ const ImageViewer = ({ item }) => {
     const [isInfoOpen, setIsInfoOpen] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [showShare, setShowShare] = useState(false);
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const [imageError, setImageError] = useState(false);
 
     const showZoomLabel = () => {
         if (zoomLabelRef.current) {
@@ -194,17 +196,33 @@ const ImageViewer = ({ item }) => {
                     className="relative max-w-full max-h-full flex-center z-10"
                     layout
                 >
+                    <AnimatePresence>
+                        {!isImageLoaded && !imageError && (
+                            <motion.div 
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute inset-0 flex flex-col items-center justify-center z-20 bg-[#efefef]/50 backdrop-blur-[2px]"
+                            >
+                                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-400"></div>
+                                <p className="mt-4 text-[13px] font-medium text-gray-400 animate-pulse">Opening image...</p>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                     <motion.img 
                         animate={{ 
                             scale: zoom, 
                             rotate: rotation,
-                            ...(zoom <= 1 ? { x: 0, y: 0 } : {})
+                            ...(zoom <= 1 ? { x: 0, y: 0 } : {}),
+                            opacity: isImageLoaded ? 1 : 0
                         }}
                         transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         src={item?.imageUrl} 
                         alt={item?.name}
+                        onLoad={() => setIsImageLoaded(true)}
+                        onError={() => setImageError(true)}
                         style={{ transformOrigin: 'center center' }}
-                        className="max-w-full max-h-[calc(100vh-250px)] rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.15)] bg-white object-contain border border-white/40 pointer-events-none"
+                        className="max-w-full max-h-[calc(100vh-250px)] rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.15)] bg-white object-contain border border-white/40 pointer-events-none transition-opacity duration-300"
                     />
                     
                     {/* Floating Zoom Label (animated by GSAP) */}

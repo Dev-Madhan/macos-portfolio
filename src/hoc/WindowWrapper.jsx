@@ -42,8 +42,8 @@ const WindowWrapper = (Component, windowKey) => {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.94 }}
                             transition={{ 
-                                duration: 0.15,
-                                ease: [0.12, 0, 0.39, 0]
+                                duration: 0.3,
+                                ease: [0.22, 1, 0.36, 1]
                             }}
                         >
                             <Component {...props} item={data} />
