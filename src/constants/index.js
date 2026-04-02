@@ -135,10 +135,10 @@ const socials = [
   },
   {
     id: 2,
-    text: "Portfolio",
-    icon: "/icons/atom.svg",
-    bg: "#4bcb63",
-    link: "https://yourportfolio.com/",
+    text: "Instagram",
+    icon: "/icons/instagram.svg",
+    bg: "#e1306c",
+    link: "https://instagram.com/sruthika",
   },
   {
     id: 3,
