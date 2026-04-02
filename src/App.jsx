@@ -17,8 +17,8 @@ const App = () => {
         animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Welcome />
         <Home />
+        <Welcome />
       </motion.div>
       <Dock />
 

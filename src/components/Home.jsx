@@ -76,9 +76,9 @@ const Home = () => {
             ease: [0.23, 1, 0.32, 1] 
           }}
           whileHover={{ scale: 1.02 }}
-          whileDrag={{ scale: 1.08, zIndex: 100 }}
+          whileDrag={{ scale: 1.08, zIndex: 40 }}
           style={{ position: 'absolute', top: folder.initialPos.top, left: folder.initialPos.left }}
-          className="pointer-events-auto flex flex-col items-center gap-1.5 group cursor-default w-24 h-24 relative z-10"
+          className="pointer-events-auto flex flex-col items-center gap-0.5 group cursor-default w-24 h-24 relative z-0"
           onDoubleClick={() => handleOpen(folder)}
         >
             <div 
@@ -91,9 +91,11 @@ const Home = () => {
                 className="w-14 h-14 object-contain group-hover:brightness-110 transition-all duration-300"
               />
             </div>
-            <span className="text-white text-[12px] font-semibold leading-tight text-center px-2 py-0.5 rounded-[5px] bg-transparent backdrop-blur-none border border-transparent group-hover:bg-white/10 group-hover:backdrop-blur-3xl group-hover:border-2 group-hover:border-white/25 group-hover:saturate-200 group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-400 shadow-none group-hover:shadow-md w-full truncate whitespace-nowrap">
-              {folder.name}
-            </span>
+            <div className="w-full h-6 px-1 flex-center">
+              <span className="text-white text-[12px] font-semibold leading-tight text-center px-1.5 py-0.5 rounded-[4px] bg-transparent backdrop-blur-none border-2 border-transparent group-hover:bg-white/10 group-hover:backdrop-blur-3xl group-hover:border-white/25 group-hover:saturate-200 group-hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-400 shadow-none group-hover:shadow-md w-full truncate whitespace-nowrap overflow-hidden box-border inline-block">
+                {folder.name}
+              </span>
+            </div>
           </motion.div>
       ))}
     </div>

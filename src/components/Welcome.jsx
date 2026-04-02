@@ -78,20 +78,20 @@ const Welcome = () => {
     }, [])
 
     return (
-        <section id="welcome" className="w-full text-center">
-            <div ref={subtitleRef} className="w-full max-w-xs md:max-w-none mx-auto leading-tight">
+        <section id="welcome" className="w-full text-center pointer-events-none">
+            <div ref={subtitleRef} className="w-full max-w-xs md:max-w-none mx-auto leading-tight pointer-events-auto">
                 <TextEffect as="p" preset='fade-in-blur' per="char" speedReveal={1.5} speedSegment={0.5} 
                     charClassName="letter text-xl sm:text-2xl md:text-3xl font-georama" 
                     charStyle={{ fontVariationSettings: "'wght' 200" }}>
                     Designing intuitive experiences that users loves
                 </TextEffect>
             </div>
-            <h1 ref={titleRef} className='mt-3 sm:mt-4 leading-none'>
+            <h1 ref={titleRef} className='mt-3 sm:mt-4 leading-none pointer-events-auto'>
                 {renderText("Sruthika",
                     "text-6xl sm:text-7xl md:text-9xl italic font-georama"
                 )}
             </h1>
-            <p className="mt-2">{renderText("UI / UX Designer",
+            <p className="mt-2 pointer-events-auto">{renderText("UI / UX Designer",
                 "text-lg sm:text-xl md:text-2xl font-georama"
             )}
             </p>
