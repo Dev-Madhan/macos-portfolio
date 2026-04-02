@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 import SpotlightSearch from './SpotlightSearch';
 
 const Navbar = () => {
-  const { openWindow } = useWindowStore();
+  const { openWindow, lockScreen } = useWindowStore();
   const [activeMenu, setActiveMenu] = useState(null);
   const [wifiEnabled, setWifiEnabled] = useState(true);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
@@ -180,7 +180,7 @@ const Navbar = () => {
                   <div className="w-full flex flex-col gap-0.5 mt-0.5">
                       {[
                         { icon: Settings2, text: "System Settings...", action: () => {} },
-                        { icon: Lock, text: "Lock Screen", action: () => {} }
+                        { icon: Lock, text: "Lock Screen", action: () => { lockScreen(); setActiveMenu(null); } }
                       ].map((item, idx) => (
                         <motion.div
                           key={idx}
@@ -190,6 +190,7 @@ const Navbar = () => {
                         >
                           <Button 
                              variant="ghost" 
+                             onClick={item.action}
                              className="w-full justify-start items-center gap-3 px-1.5 py-2 h-auto text-gray-200 hover:bg-white/10 hover:backdrop-blur-xl hover:text-white border-2 border-transparent hover:border-white/20 focus-visible:ring-0 group rounded-xl transition-colors duration-200"
                              onMouseEnter={(e) => {
                                gsap.to(e.currentTarget.querySelector('.menu-icon'), { 

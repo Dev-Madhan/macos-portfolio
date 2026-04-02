@@ -7,6 +7,11 @@ const useWindowStore = create(
     windows: WINDOW_CONFIG,
     nextZIndex: INITIAL_Z_INDEX + 1,
 
+    // Lock screen state (separate from boot — manual lock has no boot animation)
+    isLocked: false,
+    lockScreen: () => set((state) => { state.isLocked = true; }),
+    unlockScreen: () => set((state) => { state.isLocked = false; }),
+
     openWindow: (windowKey, data = null) =>
       set((state) => {
         const win = state.windows[windowKey];

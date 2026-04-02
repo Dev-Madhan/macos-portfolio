@@ -1,0 +1,215 @@
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRightIcon } from "./ui/arrow-right";
+import useWindowStore from "#store/window";
+
+const SESSION_KEY = "boot_shown";
+
+// ─── Login Panel (defined OUTSIDE LockScreen so React never remounts it) ────
+const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
+  const formattedTime = time.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: false,
+  });
+  const formattedDate = time.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+
+  return (
+    <div className="absolute inset-0 bg-[url('/images/wallpaper.jpg')] bg-cover bg-center flex flex-col items-center text-white">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-none" />
+
+      {/* Date & Time */}
+      <div className="flex flex-col items-center mt-20 z-10 w-full">
+        <h2 className="text-[28px] text-white/90 font-medium tracking-wide">
+          {formattedDate}
+        </h2>
+        <div className="overflow-hidden mt-[-10px] h-[120px] w-full flex items-center justify-center relative">
+          <AnimatePresence mode="popLayout">
+            <motion.h1
+              key={formattedTime}
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 1.05, filter: "blur(4px)" }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+              className="text-[100px] leading-none text-white/95 absolute font-bold"
+            >
+              {formattedTime}
+            </motion.h1>
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* User Login */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
+        <img
+          src="/images/sruthika-1.jpg"
+          alt="Sruthika"
+          className="w-24 h-24 rounded-full object-cover object-top border-2 border-white/20 shadow-2xl mb-5"
+        />
+        <h3 className="text-xl font-medium tracking-wide mb-6">Sruthika</h3>
+
+        <form onSubmit={onSubmit} className="relative flex items-center">
+          <input
+            ref={inputRef}
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-56 bg-white/10 backdrop-blur-md border-2 border-white/20 text-white placeholder:text-white/60 text-sm rounded-full py-2 pl-4 pr-10 focus:outline-none focus:bg-white/20 focus:ring-2 focus:ring-white/30 transition-all font-inter shadow-xl"
+          />
+          <button
+            type="submit"
+            disabled={password.length === 0}
+            className="absolute right-1 w-7 h-7 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 disabled:opacity-50 disabled:hover:bg-white/20 transition-colors"
+          >
+            <ArrowRightIcon size={14} />
+          </button>
+        </form>
+        <p className="text-white/50 text-xs mt-3 font-medium">
+          Hint: Enter your nickname used to call by your parents
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// ─── Main LockScreen Component ───────────────────────────────────────────────
+const LockScreen = () => {
+  const { isLocked: isManuallyLocked, unlockScreen } = useWindowStore();
+
+  const firstVisit = !sessionStorage.getItem(SESSION_KEY);
+  const [showBoot, setShowBoot] = useState(firstVisit);
+  const [booting, setBooting] = useState(firstVisit);
+
+  const [password, setPassword] = useState("");
+  const [time, setTime] = useState(new Date());
+  const inputRef = useRef(null);
+
+  // Clock
+  useEffect(() => {
+    const t = setInterval(() => setTime(new Date()), 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Focus input when login screen appears
+  const loginVisible = (showBoot && !booting) || isManuallyLocked;
+  useEffect(() => {
+    if (loginVisible) {
+      const id = setTimeout(() => inputRef.current?.focus(), 400);
+      return () => clearTimeout(id);
+    }
+  }, [loginVisible]);
+
+  // Reset password when manual lock closes
+  useEffect(() => {
+    if (!isManuallyLocked) setPassword("");
+  }, [isManuallyLocked]);
+
+  const handleBootUnlock = (e) => {
+    e.preventDefault();
+    sessionStorage.setItem(SESSION_KEY, "1");
+    setShowBoot(false);
+  };
+
+  const handleManualUnlock = (e) => {
+    e.preventDefault();
+    unlockScreen();
+  };
+
+  return (
+    <>
+      {/* ── 1. BOOT LOCK SCREEN (first visit only) ── */}
+      <AnimatePresence>
+        {showBoot && (
+          <motion.div
+            key="boot-wrapper"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none"
+          >
+            {/* Boot animation */}
+            <AnimatePresence>
+              {booting && (
+                <motion.div
+                  key="boot-anim"
+                  initial={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-black flex flex-col items-center justify-center z-10 text-white"
+                >
+                  <svg
+                    className="w-[80px] h-[80px] mb-16 fill-white"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" />
+                  </svg>
+                  <div className="w-56 h-[3px] bg-white/20 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-white rounded-full origin-left"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 2.4, ease: [0.25, 0.1, 0.25, 1] }}
+                      onAnimationComplete={() => setTimeout(() => setBooting(false), 350)}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Login after boot */}
+            <AnimatePresence>
+              {!booting && (
+                <motion.div
+                  key="boot-login"
+                  className="absolute inset-0"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <LoginPanel
+                    onSubmit={handleBootUnlock}
+                    inputRef={inputRef}
+                    password={password}
+                    setPassword={setPassword}
+                    time={time}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ── 2. MANUAL LOCK SCREEN (Navbar → Lock Screen, no boot anim) ── */}
+      <AnimatePresence>
+        {isManuallyLocked && (
+          <motion.div
+            key="manual-wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 1.04, filter: "blur(10px)" }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none"
+          >
+            <LoginPanel
+              onSubmit={handleManualUnlock}
+              inputRef={inputRef}
+              password={password}
+              setPassword={setPassword}
+              time={time}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default LockScreen;

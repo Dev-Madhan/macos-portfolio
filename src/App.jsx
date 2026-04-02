@@ -1,8 +1,8 @@
 import React from 'react'
 import gsap from 'gsap';
-import { Dock, Navbar, Welcome, Home } from '#components'
+import { Dock, Navbar, Welcome, Home, LockScreen } from '#components'
 // eslint-disable-next-line no-unused-vars
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
 import { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos, Archive } from '#windows';
 gsap.registerPlugin(Draggable);
@@ -10,6 +10,7 @@ gsap.registerPlugin(Draggable);
 const App = () => {
   return (
     <main id="main-screen">
+      <LockScreen />
       <Navbar />
       <motion.div
         className="size-full absolute inset-0"
