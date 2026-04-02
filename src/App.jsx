@@ -1,6 +1,6 @@
 import React from 'react'
 import gsap from 'gsap';
-import { Dock, Navbar, Welcome } from '#components'
+import { Dock, Navbar, Welcome, Home } from '#components'
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
@@ -18,6 +18,7 @@ const App = () => {
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <Welcome />
+        <Home />
       </motion.div>
       <Dock />
 

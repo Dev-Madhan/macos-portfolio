@@ -35,9 +35,9 @@ import {
 
 const TAG_COLORS = [null, '#ff6b6b', '#ffb347', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
 
-const Finder = () => {
+const Finder = ({ item }) => {
     const { closeWindow, openWindow } = useWindowStore();
-    const [currentFolder, setCurrentFolder] = useState(locations.work);
+    const [currentFolder, setCurrentFolder] = useState(item || locations.work);
     const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
     const [isMaximized, setIsMaximized] = useState(false);
@@ -114,6 +114,14 @@ const Finder = () => {
     const filteredChildren = currentFolder?.children?.filter(item => 
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     ) || [];
+
+    useEffect(() => {
+        if (item) {
+            setCurrentFolder(item);
+            setHistory([item]);
+            setHistoryIdx(0);
+        }
+    }, [item]);
 
     useEffect(() => {
         if (contentRef.current) {
