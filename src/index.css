@@ -264,6 +264,7 @@ body {
   #contact {
     @apply absolute font-mona font-medium;
     width: 640px;
+    height: 430px;
     top: 20vh;
     left: calc(50% - 320px);
   }
@@ -275,14 +276,20 @@ body {
     height: 100%;
     border-radius: 14px;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(48px) saturate(200%);
-    -webkit-backdrop-filter: blur(48px) saturate(200%);
+    background: rgb(240, 240, 242); /* solid fallback for hosted envs */
     position: relative;
     z-index: 1;
     box-shadow:
       0 32px 80px rgba(0, 0, 0, 0.28),
       0 0 0 1px rgba(255, 255, 255, 0.22);
+  }
+
+  @supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+    .ct-root {
+      background: rgba(255, 255, 255, 0.62);
+      backdrop-filter: blur(48px) saturate(200%);
+      -webkit-backdrop-filter: blur(48px) saturate(200%);
+    }
   }
 
   /* ── Header ── */
