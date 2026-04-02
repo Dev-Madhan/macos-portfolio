@@ -2,50 +2,80 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRightIcon } from "./ui/arrow-right";
 import useWindowStore from "#store/window";
+import gsap from "gsap";
+import NumberFlow from "@number-flow/react";
 
 const SESSION_KEY = "boot_shown";
 
 // ─── Login Panel (defined OUTSIDE LockScreen so React never remounts it) ────
 const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
-  const formattedTime = time.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: false,
-  });
-  const formattedDate = time.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from(".login-card-anim", {
+        opacity: 0,
+        y: 30,
+        filter: "blur(15px)",
+        duration: 1.5,
+        ease: "power3.out",
+        delay: 0.2,
+        clearProps: "all"
+      });
+      
+      gsap.from(".login-bg", {
+        scale: 1.1,
+        filter: "blur(20px)",
+        duration: 1.5,
+        ease: "power2.out"
+      });
+    }, containerRef);
+    return () => ctx.revert();
+  }, []);
+
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  
+  const weekday = time.toLocaleDateString("en-US", { weekday: "long" });
+  const month = time.toLocaleDateString("en-US", { month: "long" });
+  const day = time.getDate();
 
   return (
-    <div className="absolute inset-0 bg-[url('/images/wallpaper.jpg')] bg-cover bg-center flex flex-col items-center text-white">
+    <div ref={containerRef} className="absolute inset-0 flex flex-col items-center text-white overflow-hidden">
+      {/* Background Image with separate layer to animate scale without clipping items */}
+      <div 
+        className="login-bg absolute inset-0 bg-[url('/images/wallpaper.jpg')] bg-cover bg-center" 
+      />
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-none" />
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px] pointer-events-none" />
 
       {/* Date & Time */}
-      <div className="flex flex-col items-center mt-20 z-10 w-full">
-        <h2 className="text-[28px] text-white/90 font-medium tracking-wide">
-          {formattedDate}
+      <motion.div 
+        initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        className="flex flex-col items-center mt-20 z-10 w-full"
+      >
+        <h2 className="text-[28px] text-white/90 font-medium tracking-wide flex items-center gap-x-1.5 translate-y-[-2px]">
+          <span>{weekday},</span>
+          <span>{month}</span>
+          <NumberFlow value={day} />
         </h2>
-        <div className="overflow-hidden mt-[-10px] h-[120px] w-full flex items-center justify-center relative">
-          <AnimatePresence mode="popLayout">
-            <motion.h1
-              key={formattedTime}
-              initial={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 1.05, filter: "blur(4px)" }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[100px] leading-none text-white/95 absolute font-bold"
-            >
-              {formattedTime}
-            </motion.h1>
-          </AnimatePresence>
+        <div className="h-[120px] w-full flex items-center justify-center font-bold text-[100px] tracking-tight text-white/95 leading-none">
+          <NumberFlow 
+            value={hours} 
+            format={{ minimumIntegerDigits: 2 }} 
+          />
+          <span className="relative top-[-4px] mx-1 opacity-80">:</span>
+          <NumberFlow 
+            value={minutes} 
+            format={{ minimumIntegerDigits: 2 }} 
+          />
         </div>
-      </div>
+      </motion.div>
 
       {/* User Login */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
+      <div className="login-card-anim absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center z-10">
         <img
           src="/images/sruthika-1.jpg"
           alt="Sruthika"
@@ -141,7 +171,7 @@ const LockScreen = () => {
                   key="boot-anim"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                   className="absolute inset-0 bg-black flex flex-col items-center justify-center z-10 text-white"
                 >
                   <svg
@@ -195,8 +225,8 @@ const LockScreen = () => {
             key="manual-wrapper"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 1.04, filter: "blur(10px)" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            exit={{ opacity: 0, scale: 1.05, filter: "blur(15px)" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none"
           >
             <LoginPanel
