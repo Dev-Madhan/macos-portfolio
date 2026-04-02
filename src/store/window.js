@@ -8,9 +8,15 @@ const useWindowStore = create(
     nextZIndex: INITIAL_Z_INDEX + 1,
 
     // Lock screen state (separate from boot — manual lock has no boot animation)
-    isLocked: false,
-    lockScreen: () => set((state) => { state.isLocked = true; }),
-    unlockScreen: () => set((state) => { state.isLocked = false; }),
+    isLocked: sessionStorage.getItem("is_locked") === "true" || !sessionStorage.getItem("boot_shown"),
+    lockScreen: () => set((state) => { 
+      state.isLocked = true; 
+      sessionStorage.setItem("is_locked", "true");
+    }),
+    unlockScreen: () => set((state) => { 
+      state.isLocked = false; 
+      sessionStorage.setItem("is_locked", "false");
+    }),
 
     openWindow: (windowKey, data = null) =>
       set((state) => {

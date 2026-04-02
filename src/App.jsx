@@ -5,17 +5,24 @@ import { Dock, Navbar, Welcome, Home, LockScreen } from '#components'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
 import { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos, Archive } from '#windows';
+import useWindowStore from '#store/window';
 gsap.registerPlugin(Draggable);
 
 const App = () => {
+  const isLocked = useWindowStore((state) => state.isLocked);
+
   return (
     <main id="main-screen">
       <LockScreen />
       <Navbar />
       <motion.div
         className="size-full absolute inset-0"
-        initial={{ opacity: 0, y: 40, filter: "blur(10px)" }}
-        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        initial="initial"
+        animate={isLocked ? "initial" : "animate"}
+        variants={{
+          initial: { opacity: 0, y: 40, filter: "blur(10px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" }
+        }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <Home />

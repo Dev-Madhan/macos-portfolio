@@ -114,6 +114,7 @@ const LockScreen = () => {
     e.preventDefault();
     sessionStorage.setItem(SESSION_KEY, "1");
     setShowBoot(false);
+    unlockScreen();
   };
 
   const handleManualUnlock = (e) => {
@@ -189,7 +190,7 @@ const LockScreen = () => {
 
       {/* ── 2. MANUAL LOCK SCREEN (Navbar → Lock Screen, no boot anim) ── */}
       <AnimatePresence>
-        {isManuallyLocked && (
+        {isManuallyLocked && !showBoot && (
           <motion.div
             key="manual-wrapper"
             initial={{ opacity: 0 }}
