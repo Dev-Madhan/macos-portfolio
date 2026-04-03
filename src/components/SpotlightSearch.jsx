@@ -164,19 +164,16 @@ const SpotlightSearch = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // ── GSAP Entrance / Exit ──────────────────────────────────────────────────────
+  // ── Entrance / Exit Logic ───────────────────────────────────────────────────
+  // We let Framer Motion handle the entrance/exit animations for reliability,
+  // especially in production environments like Vercel.
   useEffect(() => {
-    if (!containerRef.current) return;
-
     if (isOpen) {
-      gsap.fromTo(
-        containerRef.current,
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 0.26, ease: 'back.out(1.6)' }
-      );
-      if (overlayRef.current) {
-        gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2 });
-      }
+      setQuery('');
+      setResults([]);
+      setCategories([]);
+      setActiveIdx(0);
+      setTimeout(() => inputRef.current?.focus(), 150);
     }
   }, [isOpen]);
 

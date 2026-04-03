@@ -760,9 +760,9 @@ body {
     position: fixed;
     inset: 0;
     z-index: 998;
-    background: rgba(0, 0, 0, 0.28);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.45);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
   }
 
   .spotlight-panel {
@@ -772,18 +772,21 @@ body {
     width: 680px;
     max-width: 92vw;
     z-index: 999;
-    background: rgba(28, 28, 30, 0.82);
-    backdrop-filter: blur(40px) saturate(200%);
-    -webkit-backdrop-filter: blur(40px) saturate(200%);
-    border: 2px solid rgba(255, 255, 255, 0.13);
+    background: rgba(25, 25, 27, 0.96);
+    -webkit-backdrop-filter: blur(50px) saturate(210%);
+    backdrop-filter: blur(50px) saturate(210%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 18px;
     box-shadow:
       0 32px 80px rgba(0, 0, 0, 0.55),
       0 0 0 0.5px rgba(255, 255, 255, 0.06) inset,
       0 1px 0 rgba(255, 255, 255, 0.12) inset;
     overflow: hidden;
-    will-change: transform, opacity;
     font-family: var(--font-inter), sans-serif;
+  }
+
+  .spotlight-panel-expanded {
+    background: rgba(25, 25, 27, 0.98);
   }
 
   /* Search Bar */
