@@ -122,13 +122,35 @@ const Photos = () => {
         showToast(TAG_COLORS[next] ? '🏷️ Tag applied' : '🏷️ Tag removed');
     };
 
-    // Category-mapped gallery images (Moving to local state for favoriting feature)
-    const [imagesData, setImagesData] = useState([
-        { id: 'g1', url: '/images/gal-1.jpg', span: 'col-span-2 row-span-2', name: 'Mountain Peak', categories: ['Library', 'Memories', 'Favorites'], size: '2.4 MB', date: 'Oct 12, 2023 at 4:20 PM' },
+    // Initial images data
+    const INITIAL_IMAGES = [
+        { id: 'g1', url: '/images/gal-1.jpg', span: 'col-span-2 row-span-2', name: 'Mountain Peak', categories: ['Library', 'Memories'], size: '2.4 MB', date: 'Oct 12, 2023 at 4:20 PM' },
         { id: 'g2', url: '/images/gal-2.jpg', span: 'col-span-1 row-span-2', name: 'Forest Path', categories: ['Library', 'Places'], size: '1.8 MB', date: 'Sep 28, 2023 at 11:15 AM' },
         { id: 'g3', url: '/images/gal-3.jpg', span: 'col-span-1 row-span-1', name: 'Neon City', categories: ['Library', 'Memories'], size: '3.1 MB', date: 'Nov 05, 2023 at 8:45 PM' },
         { id: 'g4', url: '/images/gal-4.jpg', span: 'col-span-2 row-span-1', name: 'Golden Hour', categories: ['Library', 'People'], size: '2.9 MB', date: 'Dec 01, 2023 at 5:10 PM' },
-    ]);
+    ];
+
+    // Category-mapped gallery images with persistence
+    const [imagesData, setImagesData] = useState(() => {
+        const savedFavorites = localStorage.getItem('gallery-favorites');
+        if (!savedFavorites) return INITIAL_IMAGES;
+        
+        const favoriteIds = JSON.parse(savedFavorites);
+        return INITIAL_IMAGES.map(img => ({
+            ...img,
+            categories: favoriteIds.includes(img.id) 
+                ? Array.from(new Set([...img.categories, 'Favorites']))
+                : img.categories.filter(c => c !== 'Favorites')
+        }));
+    });
+
+    // Save favorites to localStorage whenever they change
+    useEffect(() => {
+        const favoriteIds = imagesData
+            .filter(img => img.categories.includes('Favorites'))
+            .map(img => img.id);
+        localStorage.setItem('gallery-favorites', JSON.stringify(favoriteIds));
+    }, [imagesData]);
 
     const toggleFavorite = (e, id) => {
         e.stopPropagation();
