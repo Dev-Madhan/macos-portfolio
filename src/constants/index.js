@@ -142,10 +142,10 @@ const socials = [
   },
   {
     id: 3,
-    text: "Twitter/X",
-    icon: "/icons/twitter.svg",
-    bg: "#ff866b",
-    link: "https://x.com/",
+    text: "Dribbble",
+    icon: "/icons/dribbble.svg",
+    bg: "#ea4c89",
+    link: "https://dribbble.com/sruthika299",
   },
   {
     id: 4,
@@ -261,6 +261,8 @@ const WORK_LOCATION = {
             "The JBL website redesign is a comprehensive UI/UX case study aimed at delivering a premium audio shopping experience.",
             "I focused on user research, wireframing, and high-fidelity prototyping to craft a dynamic dark theme and sleek visual hierarchy.",
             "By optimizing the user journey and creating interactive prototypes, I ensured a seamless and engaging experience for audiophiles.",
+            "The final design incorporates custom iconography and tactile feedback animations that mimic the physical feel of premium audio equipment.",
+            "Through multiple rounds of usability testing, I achieved a significant reduction in checkout friction, creating a truly user-centric digital storefront.",
           ],
         },
         {
@@ -313,6 +315,8 @@ const WORK_LOCATION = {
             "Vivid Lux is a UI/UX design project for a modern eCommerce platform, specialized for a high-end lighting brand.",
             "My design process involved creating comprehensive user personas, user flows, and a clean, minimalist design system.",
             "I emphasized intuitive product discovery through clear navigation and refined micro-interactions, providing a seamless journey from browsing to checkout.",
+            "I integrated a sophisticated 'Lighting Preview' feature that allows users to visualize products in different room settings before purchasing.",
+            "The color palette was carefully chosen to enhance the luxury feel, using deep charcoal backgrounds to let the vibrant product photography shine.",
           ],
         },
         {
@@ -365,6 +369,8 @@ const WORK_LOCATION = {
             "Pattio is a vibrant and appetizing UI/UX design concept dedicated to the ultimate burger experience.",
             "The design strategy focused on accessible typography, high-contrast visual elements, and an inviting color palette.",
             "I prioritized usability testing and iterative prototyping to refine the food ordering process, reducing friction and capturing the essence of great user experience.",
+            "Interactive 'Build Your Burger' components were developed to make the customization process fun and visually rewarding for customers.",
+            "The project successfully bridges the gap between digital convenience and the sensory appeal of gourmet food through high-resolution imagery.",
           ],
         },
         {

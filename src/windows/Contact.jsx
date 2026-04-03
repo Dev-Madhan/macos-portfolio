@@ -7,7 +7,7 @@ import { Mail, MapPin, ExternalLink } from 'lucide-react';
 import { InstagramIcon } from '@/components/ui/instagram';
 import { LinkedinIcon } from '@/components/ui/linkedin';
 import { GithubIcon } from '@/components/ui/github';
-import { TwitterIcon } from '@/components/ui/twitter';
+import { DribbbleIcon } from '@/components/ui/dribbble';
 import { MailCheckIcon } from '@/components/ui/mail-check';
 import { MapPinIcon } from '@/components/ui/map-pin';
 
@@ -37,7 +37,7 @@ const rowVariants = {
 const ICON_COLORS = {
     github:   { bg: 'rgba(99,  99,  102, 0.12)', color: '#48484a' },
     portfolio:{ bg: 'rgba(10,  132, 255, 0.12)', color: '#0a84ff' },
-    twitter:  { bg: 'rgba(0,   162, 255, 0.12)', color: '#0a8fff' },
+    dribbble: { bg: 'rgba(234, 76, 137, 0.12)', color: '#ea4c89' },
     linkedin: { bg: 'rgba(0,   119, 181, 0.12)', color: '#007ab5' },
 };
 
@@ -45,7 +45,7 @@ const iconColorFor = (text) => {
     const key = text.toLowerCase().replace(/[^a-z]/g, '');
     if (key.includes('git'))  return ICON_COLORS.github;
     if (key.includes('link')) return ICON_COLORS.linkedin;
-    if (key.includes('twit') || key.includes('x'))  return ICON_COLORS.twitter;
+    if (key.includes('dribb')) return ICON_COLORS.dribbble;
     return ICON_COLORS.portfolio;
 };
 
@@ -92,8 +92,8 @@ const SocialRow = ({ social }) => {
                     <LinkedinIcon size={15} style={{ color: 'rgba(0,0,0,0.72)' }} />
                 ) : social.text === 'Github' ? (
                     <GithubIcon size={15} style={{ color: 'rgba(0,0,0,0.72)' }} />
-                ) : social.text === 'Twitter/X' ? (
-                    <TwitterIcon size={15} style={{ color: 'rgba(0,0,0,0.72)' }} />
+                ) : social.text === 'Dribbble' ? (
+                    <DribbbleIcon size={15} style={{ color: 'rgba(0,0,0,0.72)' }} />
                 ) : (
                     <img
                         src={social.icon}

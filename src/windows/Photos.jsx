@@ -427,10 +427,29 @@ const Photos = () => {
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.98 }}
                                     transition={{ duration: 0.2, ease: "easeOut" }}
-                                    className="absolute inset-0 flex flex-col items-center justify-center text-gray-300 gap-4"
+                                    className="absolute inset-0 flex flex-col items-center justify-center text-gray-400 gap-3"
                                 >
-                                    <Search size={48} strokeWidth={1} />
-                                    <p className="text-[13px] font-medium">No results found for "{searchQuery}"</p>
+                                    {activeTab === 'Favorites' ? (
+                                        <>
+                                            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-1 shadow-sm border border-gray-200/50">
+                                                <Heart size={28} className="text-gray-300 fill-none" strokeWidth={1.5} />
+                                            </div>
+                                            <h3 className="text-lg font-bold text-gray-800 tracking-tight">No Favorites</h3>
+                                            <p className="text-[13px] text-gray-400 max-w-[240px] text-center leading-relaxed">
+                                                To add a photo to your Favorites, click the <Heart size={12} className="inline-block mx-0.5 text-gray-400" /> icon on any photo.
+                                            </p>
+                                        </>
+                                    ) : searchQuery ? (
+                                        <>
+                                            <Search size={48} strokeWidth={1} className="text-gray-300" />
+                                            <p className="text-[13px] font-medium">No results found for "{searchQuery}"</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <LayoutGrid size={48} strokeWidth={1} className="text-gray-300" />
+                                            <p className="text-[13px] font-medium text-gray-400">This collection is empty</p>
+                                        </>
+                                    )}
                                 </motion.div>
                             ) : viewMode === 'grid' ? (
                                 <motion.div 
