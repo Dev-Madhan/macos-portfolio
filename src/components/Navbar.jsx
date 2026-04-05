@@ -65,12 +65,14 @@ const Navbar = () => {
             <li 
               onClick={() => handleIconClick('wifi')}
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'wifi' ? 'bg-white/30' : 'hover:bg-white/20'}`}
+              aria-label="Wi-Fi Status"
             >
               <Wifi size={15} className="opacity-95" strokeWidth={2.8} />
             </li>
             <li 
               onClick={() => handleIconClick('user')}
               className={`p-0.5 rounded-full transition-colors active:scale-90 cursor-pointer ${activeMenu === 'user' ? 'ring-2 ring-white/50' : 'hover:ring-2 hover:ring-white/30'}`}
+              aria-label="User Menu"
             >
               <img
                 src="/images/avatar.png"
@@ -81,12 +83,14 @@ const Navbar = () => {
             <li 
               onClick={() => handleIconClick('search')}
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${spotlightOpen ? 'bg-white/30' : 'hover:bg-white/20'}`}
+              aria-label="Spotlight Search"
             >
               <Search size={15} className="opacity-95" strokeWidth={2.8} />
             </li>
             <li 
               onClick={() => handleIconClick('settings')}
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'settings' ? 'bg-white/30' : 'hover:bg-white/20'}`}
+              aria-label="Control Center"
             >
               <SlidersHorizontal size={15} className="opacity-95" strokeWidth={2.8} />
             </li>

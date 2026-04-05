@@ -165,9 +165,9 @@ const Finder = ({ item }) => {
             <div id="window-header" className="window-header h-[52px] bg-[#f6f6f6] border-b border-gray-200/60 flex items-center px-4 gap-4 shrink-0 transition-colors duration-300">
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <button className="close" onClick={() => closeWindow("finder")} title="Close" />
-                    <button className="minimize" onClick={() => closeWindow("finder")} title="Minimize" />
-                    <button className="maximize" onClick={() => setIsMaximized(v => !v)} title={isMaximized ? 'Restore' : 'Maximize'} />
+                    <button className="close" onClick={() => closeWindow("finder")} aria-label="Close Finder" title="Close" />
+                    <button className="minimize" onClick={() => closeWindow("finder")} aria-label="Minimize Finder" title="Minimize" />
+                    <button className="maximize" onClick={() => setIsMaximized(v => !v)} aria-label={isMaximized ? 'Restore' : 'Maximize'} title={isMaximized ? 'Restore' : 'Maximize'} />
                 </div>
 
                 {/* Navigation & View Group */}
@@ -183,15 +183,16 @@ const Finder = ({ item }) => {
                             size={18} strokeWidth={2.5}
                             className={`transition-colors ${canGoForward ? 'cursor-pointer hover:text-gray-600' : 'opacity-25 cursor-default'}`}
                             onClick={goForward}
+                            aria-label="Go Forward"
                         />
                     </div>
 
                     {/* View Switcher */}
                     <div className="flex bg-gray-200/50 p-0.5 rounded-md border border-gray-300/50 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]">
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('grid')}><LayoutGrid size={13} strokeWidth={2.5} /></button>
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('list')}><List size={13} strokeWidth={2.5} /></button>
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'columns' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('columns')}><Columns size={13} strokeWidth={2.5} /></button>
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'gallery' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('gallery')}><Square size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('grid')} aria-label="Grid View"><LayoutGrid size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('list')} aria-label="List View"><List size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'columns' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('columns')} aria-label="Column View"><Columns size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 hidden sm:block ${viewMode === 'gallery' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('gallery')} aria-label="Gallery View"><Square size={13} strokeWidth={2.5} /></button>
                     </div>
                 </div>
 
@@ -214,17 +215,18 @@ const Finder = ({ item }) => {
 
                 {/* Actions Group */}
                 <div className="hidden lg:flex items-center gap-1.5 text-gray-500 relative">
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" title="Share" onClick={handleShare}>
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" title="Share" onClick={handleShare} aria-label="Share">
                         <Share size={15} strokeWidth={2} />
                     </button>
                     <button
                         className={`p-1.5 rounded-md transition-colors ${tagColor ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
                         title="Tag"
                         onClick={handleTag}
+                        aria-label="Toggle Tag"
                     >
                         <Tag size={15} strokeWidth={2} style={tagColor ? { color: tagColor } : {}} />
                     </button>
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2" title="More options" onClick={() => setShowMoreMenu(v => !v)}>
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2" title="More options" onClick={() => setShowMoreMenu(v => !v)} aria-label="More Options">
                         <MoreHorizontal size={15} strokeWidth={2} />
                     </button>
                     {/* More Menu Dropdown */}

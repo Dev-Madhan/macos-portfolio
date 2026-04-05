@@ -118,9 +118,9 @@ const ImageViewer = ({ item }) => {
             <div id="window-header" className="window-header h-[52px] border-b border-gray-200/60 flex items-center px-4 gap-4 shrink-0 bg-[#f6f6f6]/90">
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <button className="close" onClick={() => closeWindow("imgfile")}></button>
-                    <button className="minimize"></button>
-                    <button className="maximize"></button>
+                    <button className="close" onClick={() => closeWindow("imgfile")} aria-label="Close Preview" title="Close" />
+                    <button className="minimize" aria-label="Minimize Preview" title="Minimize" />
+                    <button className="maximize" aria-label="Maximize Preview" title="Maximize" />
                 </div>
 
                 {/* File Title */}
@@ -140,33 +140,36 @@ const ImageViewer = ({ item }) => {
                     <button 
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                         className={`p-1.5 rounded-md transition-colors ${isSidebarOpen ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
+                        aria-label="Toggle Thumbnails"
                     >
                         <Sidebar size={15} strokeWidth={2} />
                     </button>
                     <div className="w-[1px] h-4 bg-gray-300 mx-1"></div>
-                    <button onClick={handleZoomOut} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
+                    <button onClick={handleZoomOut} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" aria-label="Zoom Out">
                         <ZoomOut size={16} strokeWidth={2} />
                     </button>
-                    <button onClick={handleZoomIn} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
+                    <button onClick={handleZoomIn} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" aria-label="Zoom In">
                         <ZoomIn size={16} strokeWidth={2} />
                     </button>
                     <div className="w-[1px] h-4 bg-gray-300 mx-1"></div>
-                    <button onClick={handleRotate} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
+                    <button onClick={handleRotate} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" aria-label="Rotate Image">
                         <RotateCw size={15} strokeWidth={2} />
                     </button>
                     <button 
                         onClick={() => setIsEditMode(!isEditMode)}
                         className={`p-1.5 rounded-md transition-colors ${isEditMode ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
+                        aria-label="Toggle Edit Mode"
                     >
                         <Edit3 size={15} strokeWidth={2} />
                     </button>
                     <div className="w-[1px] h-4 bg-gray-300 mx-1"></div>
-                    <button onClick={handleShare} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors">
+                    <button onClick={handleShare} className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" aria-label="Share Image">
                         <Share size={15} strokeWidth={2} />
                     </button>
                     <button 
                         onClick={() => setIsInfoOpen(!isInfoOpen)}
                         className={`p-1.5 rounded-md transition-colors ${isInfoOpen ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
+                        aria-label="Toggle Image Info"
                     >
                         <Info size={15} strokeWidth={2} />
                     </button>

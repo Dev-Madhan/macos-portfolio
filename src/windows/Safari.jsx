@@ -59,22 +59,23 @@ const SafariWindow = () => {
             <div id="window-header" className="window-header h-[52px] bg-[#f6f6f6]/95 backdrop-blur-md border-b border-gray-200/60 flex items-center px-4 gap-2 shrink-0 z-20">
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <button className="close" onClick={() => closeWindow("safari")}></button>
-                    <button className="minimize"></button>
-                    <button className="maximize"></button>
+                    <button className="close" onClick={() => closeWindow("safari")} aria-label="Close Safari"></button>
+                    <button className="minimize" aria-label="Minimize Safari"></button>
+                    <button className="maximize" aria-label="Maximize Safari"></button>
                 </div>
 
                 {/* Left Navigation Actions */}
                 <div className="hidden sm:flex items-center gap-1 text-gray-500">
-                    <button className="p-1 rounded-md hover:bg-gray-200 transition-colors opacity-40 cursor-not-allowed">
+                    <button className="p-1 rounded-md hover:bg-gray-200 transition-colors opacity-40 cursor-not-allowed" aria-label="Go Back">
                         <ChevronLeft size={16} strokeWidth={2} />
                     </button>
-                    <button className="p-1 rounded-md hover:bg-gray-200 transition-colors opacity-40 cursor-not-allowed">
+                    <button className="p-1 rounded-md hover:bg-gray-200 transition-colors opacity-40 cursor-not-allowed" aria-label="Go Forward">
                         <ChevronRight size={16} strokeWidth={2} />
                     </button>
                     <button 
                         onClick={() => setSidebarOpen(!sidebarOpen)}
                         className={`p-1.5 ml-2 rounded-md transition-colors ${sidebarOpen ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
+                        aria-label="Toggle Sidebar"
                     >
                         <BookOpen size={15} strokeWidth={2} />
                     </button>
@@ -95,6 +96,7 @@ const SafariWindow = () => {
                     <button 
                         onClick={(e) => { e.stopPropagation(); handleRefresh(); }}
                         className="p-1 hover:bg-gray-100 rounded-md text-gray-400 hover:text-gray-700 transition-colors"
+                        aria-label="Refresh Page"
                     >
                         <RotateCw size={12} strokeWidth={2.5} className={isRefreshing ? 'animate-spin text-blue-500' : ''} />
                     </button>
@@ -102,12 +104,13 @@ const SafariWindow = () => {
 
                 {/* Right Action Icons */}
                 <div className="flex items-center gap-1 text-gray-500 min-w-[70px] justify-end relative">
-                    <button onClick={handleShare} className="p-1.5 hidden xs:block hover:bg-gray-200 rounded-md transition-colors">
+                    <button onClick={handleShare} className="p-1.5 hidden xs:block hover:bg-gray-200 rounded-md transition-colors" aria-label="Share">
                         <Share size={15} strokeWidth={2} />
                     </button>
                     <button 
                         onClick={() => setIsGridView(!isGridView)}
                         className="p-1.5 hover:bg-gray-200 rounded-md transition-colors"
+                        aria-label={isGridView ? "Switch to List View" : "Switch to Grid View"}
                     >
                         {isGridView ? <List size={16} strokeWidth={2} /> : <LayoutGrid size={15} strokeWidth={2} />}
                     </button>

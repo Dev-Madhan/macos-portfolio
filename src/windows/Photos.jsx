@@ -256,9 +256,9 @@ const Photos = () => {
                 
                 {/* Traffic Lights */}
                 <div id="window-controls" className="flex gap-2 min-w-[70px]">
-                    <button className="close" onClick={() => closeWindow("photos")} title="Close" />
-                    <button className="minimize" onClick={() => closeWindow("photos")} title="Minimize" />
-                    <button className="maximize" onClick={() => setIsMaximized(v => !v)} title={isMaximized ? 'Restore' : 'Maximize'} />
+                    <button className="close" onClick={() => closeWindow("photos")} aria-label="Close Photos" title="Close" />
+                    <button className="minimize" onClick={() => closeWindow("photos")} aria-label="Minimize Photos" title="Minimize" />
+                    <button className="maximize" onClick={() => setIsMaximized(v => !v)} aria-label={isMaximized ? 'Restore' : 'Maximize'} title={isMaximized ? 'Restore' : 'Maximize'} />
                 </div>
 
                 {/* Left Group */}
@@ -269,18 +269,20 @@ const Photos = () => {
                             size={18} strokeWidth={2.5}
                             className={`transition-colors ${canGoBack ? 'cursor-pointer hover:text-gray-600' : 'opacity-25 cursor-default'}`}
                             onClick={goBack}
+                            aria-label="Go Back"
                         />
                         <ChevronRight
                             size={18} strokeWidth={2.5}
                             className={`transition-colors ${canGoForward ? 'cursor-pointer hover:text-gray-600' : 'opacity-25 cursor-default'}`}
                             onClick={goForward}
+                            aria-label="Go Forward"
                         />
                     </div>
 
                     {/* View Switcher Controls (Matching Finder) */}
                     <div className="flex bg-gray-200/50 p-0.5 rounded-md border border-gray-300/50 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]">
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('grid')}><LayoutGrid size={13} strokeWidth={2.5} /></button>
-                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('list')}><List size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'grid' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('grid')} aria-label="Grid View"><LayoutGrid size={13} strokeWidth={2.5} /></button>
+                        <button className={`p-1 px-1.5 rounded-[4px] transition-all transform duration-200 ${viewMode === 'list' ? 'bg-white shadow-sm ring-1 ring-black/5 text-gray-800' : 'text-gray-500 hover:bg-gray-200'}`} onClick={() => setViewMode('list')} aria-label="List View"><List size={13} strokeWidth={2.5} /></button>
                     </div>
                 </div>
 
@@ -303,17 +305,18 @@ const Photos = () => {
 
                 {/* Right Group (Actions & Search) */}
                 <div className="hidden lg:flex items-center gap-1.5 text-gray-500 relative">
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" title="Share" onClick={handleShare}>
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors" title="Share" onClick={handleShare} aria-label="Share Photos">
                         <Share size={15} strokeWidth={2} />
                     </button>
                     <button
                         className={`p-1.5 rounded-md transition-colors ${tagColor ? 'bg-gray-200' : 'hover:bg-gray-200'}`}
                         title="Tag"
                         onClick={handleTag}
+                        aria-label="Toggle Tag"
                     >
                         <Tag size={15} strokeWidth={2} style={tagColor ? { color: tagColor } : {}} />
                     </button>
-                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2 text-gray-500" title="More options" onClick={() => setShowMoreMenu(v => !v)}>
+                    <button className="p-1.5 hover:bg-gray-200 rounded-md transition-colors mr-2 text-gray-500" title="More options" onClick={() => setShowMoreMenu(v => !v)} aria-label="More Options">
                         <MoreHorizontal size={16} strokeWidth={2} />
                     </button>
                     

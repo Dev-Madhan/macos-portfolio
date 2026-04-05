@@ -94,6 +94,7 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
           />
           <button
             type="submit"
+            aria-label="Unlock Portfolio"
             disabled={password.length === 0}
             className="absolute right-1 w-7 h-7 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 disabled:opacity-50 disabled:hover:bg-white/20 transition-colors"
           >
