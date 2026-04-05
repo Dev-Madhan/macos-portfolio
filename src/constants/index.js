@@ -282,6 +282,8 @@ const WORK_LOCATION = {
           fileType: "img",
           position: "top-52 right-80",
           imageUrl: "/images/project-1.png",
+          size: "241 KB",
+          created: "Jan 15, 2026",
         },
         {
           id: 5,
@@ -336,6 +338,8 @@ const WORK_LOCATION = {
           fileType: "img",
           position: "top-52 left-80",
           imageUrl: "/images/project-2.png",
+          size: "466 KB",
+          created: "Feb 2, 2026",
         },
         {
           id: 5,
@@ -390,6 +394,8 @@ const WORK_LOCATION = {
           fileType: "img",
           position: "top-52 right-80",
           imageUrl: "/images/project-3.png",
+          size: "918 KB",
+          created: "Mar 10, 2026",
         },
         {
           id: 5,
@@ -420,6 +426,8 @@ const ABOUT_LOCATION = {
       fileType: "img",
       position: "top-10 left-5",
       imageUrl: "/images/sruthika-2.jpg.jpeg",
+      size: "1.8 MB",
+      created: "Apr 1, 2026",
     },
     {
       id: 2,
@@ -429,6 +437,8 @@ const ABOUT_LOCATION = {
       fileType: "img",
       position: "top-28 right-72",
       imageUrl: "/images/sruthika-1.jpg",
+      size: "268 KB",
+      created: "Mar 15, 2026",
     },
     {
       id: 3,
@@ -438,6 +448,8 @@ const ABOUT_LOCATION = {
       fileType: "img",
       position: "top-52 left-80",
       imageUrl: "/images/childhood-me.jpeg",
+      size: "25 KB",
+      created: "Dec 20, 2025",
     },
     {
       id: 5,
@@ -447,6 +459,8 @@ const ABOUT_LOCATION = {
       fileType: "img",
       position: "bottom-10 right-5",
       imageUrl: "/images/childhood-grp.jpeg",
+      size: "77 KB",
+      created: "Oct 5, 2025",
     },
     {
       id: 4,
@@ -501,6 +515,8 @@ const TRASH_LOCATION = {
       fileType: "img",
       position: "top-10 left-10",
       imageUrl: "/images/trash-1.png",
+      size: "347 KB",
+      created: "Jan 1, 2026",
     },
     {
       id: 2,
@@ -510,6 +526,8 @@ const TRASH_LOCATION = {
       fileType: "img",
       position: "top-40 left-80",
       imageUrl: "/images/trash-2.png",
+      size: "208 KB",
+      created: "Feb 14, 2026",
     },
   ],
 };

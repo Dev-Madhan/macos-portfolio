@@ -430,7 +430,7 @@ const Finder = ({ item }) => {
                                                 <span className="text-[12px] text-gray-700 truncate font-medium">{item.name}</span>
                                             </div>
                                             <div className="w-[20%] text-[11px] text-gray-400">{getFormattedDate()}</div>
-                                            <div className="w-[15%] text-[11px] text-gray-400">{item.kind === 'folder' ? '--' : '4.2 MB'}</div>
+                                            <div className="w-[15%] text-[11px] text-gray-400">{item.kind === 'folder' ? '--' : item.size || 'KB'}</div>
                                             <div className="w-[20%] text-[11px] text-gray-400">{item.fileType?.toUpperCase() || (item.kind === 'folder' ? 'Folder' : 'File')}</div>
                                         </div>
                                     ))}
@@ -454,20 +454,20 @@ const Finder = ({ item }) => {
                                         <div className="w-32 h-32 bg-white rounded-xl shadow-lg border border-gray-100 p-4 mb-6 flex-center">
                                             <img src={filteredChildren[0]?.icon} alt="" className="w-full h-full object-contain" />
                                         </div>
-                                        <h3 className="text-sm font-bold text-gray-800 mb-1">{currentFolder.name} Info</h3>
+                                        <h3 className="text-sm font-bold text-gray-800 mb-1">{filteredChildren[0]?.name || currentFolder.name} Info</h3>
                                         <p className="text-[11px] text-gray-400 mb-6">{filteredChildren.length} items</p>
                                         <div className="w-full space-y-3 px-4">
                                             <div className="flex justify-between text-[11px]">
                                                 <span className="text-gray-400">Kind</span>
-                                                <span className="text-gray-700 font-medium">Folder</span>
+                                                <span className="text-gray-700 font-medium">{filteredChildren[0]?.fileType?.toUpperCase() || (filteredChildren[0]?.kind === 'folder' ? 'Folder' : 'File')}</span>
                                             </div>
                                             <div className="flex justify-between text-[11px]">
                                                 <span className="text-gray-400">Size</span>
-                                                <span className="text-gray-700 font-medium">12.8 MB</span>
+                                                <span className="text-gray-700 font-medium">{filteredChildren[0]?.size || '--'}</span>
                                             </div>
                                             <div className="flex justify-between text-[11px]">
                                                 <span className="text-gray-400">Modified</span>
-                                                <span className="text-gray-700 font-medium">{getFormattedDate()}</span>
+                                                <span className="text-gray-700 font-medium">{filteredChildren[0]?.created || getFormattedDate()}</span>
                                             </div>
                                         </div>
                                     </div>

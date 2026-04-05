@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,11 +14,13 @@ import {
     Edit3
 } from 'lucide-react';
 import useWindowStore from '#store/window';
+import { formatBytes } from '#lib/utils';
 
 const ImageViewer = ({ item }) => {
     const { closeWindow } = useWindowStore();
     const containerRef = useRef(null);
     const zoomLabelRef = useRef(null);
+    const imgRef = useRef(null);
     
     const [zoom, setZoom] = useState(1);
     const [rotation, setRotation] = useState(0);
@@ -28,6 +30,44 @@ const ImageViewer = ({ item }) => {
     const [showShare, setShowShare] = useState(false);
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [imageError, setImageError] = useState(false);
+    const [imageDetails, setImageDetails] = useState({
+        width: 0,
+        height: 0,
+        size: item?.size || '...',
+        created: item?.created || 'Today',
+        colorSpace: 'RGB',
+        alpha: 'No'
+    });
+
+    const handleImageLoad = (e) => {
+        setIsImageLoaded(true);
+        const { naturalWidth, naturalHeight } = e.target;
+        setImageDetails(prev => ({
+            ...prev,
+            width: naturalWidth,
+            height: naturalHeight
+        }));
+        
+        // If item doesn't have size, try to fetch it (fallback)
+        if (!item?.size) {
+            fetch(item?.imageUrl, { method: 'HEAD' })
+                .then(res => {
+                    const size = res.headers.get('content-length');
+                    if (size) {
+                        setImageDetails(prev => ({ ...prev, size: formatBytes(size) }));
+                    }
+                })
+                .catch(() => {
+                    setImageDetails(prev => ({ ...prev, size: '2.4 MB' }));
+                });
+        }
+    };
+
+    useEffect(() => {
+        if (imgRef.current && imgRef.current.complete) {
+            handleImageLoad({ target: imgRef.current });
+        }
+    }, [item?.imageUrl]);
 
     const showZoomLabel = () => {
         if (zoomLabelRef.current) {
@@ -90,7 +130,7 @@ const ImageViewer = ({ item }) => {
                             {item?.name || 'Preview'}
                         </span>
                         <span className="text-[10px] text-gray-400 font-medium">
-                            {item?.fileType?.toUpperCase() || 'IMAGE'} — 4.2 MB
+                            {item?.fileType?.toUpperCase() || 'IMAGE'} — {imageDetails.size} — {imageDetails.width > 0 ? `${imageDetails.width} × ${imageDetails.height}` : 'Calculating...'}
                         </span>
                     </div>
                 </div>
@@ -219,7 +259,8 @@ const ImageViewer = ({ item }) => {
                         transition={{ type: "spring", stiffness: 200, damping: 25 }}
                         src={item?.imageUrl} 
                         alt={item?.name}
-                        onLoad={() => setIsImageLoaded(true)}
+                        ref={imgRef}
+                        onLoad={handleImageLoad}
                         onError={() => setImageError(true)}
                         style={{ transformOrigin: 'center center' }}
                         className="max-w-full max-h-[calc(100vh-250px)] rounded-sm shadow-[0_20px_50px_rgba(0,0,0,0.15)] bg-white object-contain border border-white/40 pointer-events-none transition-opacity duration-300"
@@ -267,11 +308,11 @@ const ImageViewer = ({ item }) => {
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">Size</span>
-                                            <span className="font-medium">4.2 MB</span>
+                                            <span className="font-medium">{imageDetails.size}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">Created</span>
-                                            <span className="font-medium">Today at 10:41 AM</span>
+                                            <span className="font-medium">{imageDetails.created}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +322,7 @@ const ImageViewer = ({ item }) => {
                                     <div className="p-3 bg-white rounded-md border border-gray-200 shadow-sm flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">Dimensions</span>
-                                            <span className="font-medium">2560 × 1600</span>
+                                            <span className="font-medium">{imageDetails.width} × {imageDetails.height}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">Color Space</span>
@@ -289,7 +330,7 @@ const ImageViewer = ({ item }) => {
                                         </div>
                                         <div className="flex justify-between items-center">
                                             <span className="text-gray-500">Alpha Channel</span>
-                                            <span className="font-medium text-gray-400">No</span>
+                                            <span className="font-medium text-gray-400">{(item?.fileType?.toLowerCase() === 'png' || item?.fileType?.toLowerCase() === 'webp') ? 'Yes' : 'No'}</span>
                                         </div>
                                     </div>
                                 </div>
