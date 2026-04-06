@@ -6,21 +6,7 @@ import { Slot } from "radix-ui"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
-import { Skeleton } from "@/components/ui/skeleton"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
 import { PanelLeftIcon } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
@@ -152,28 +138,7 @@ function Sidebar({
   }
 
   if (isMobile) {
-    return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-        <SheetContent
-          dir={dir}
-          data-sidebar="sidebar"
-          data-slot="sidebar"
-          data-mobile="true"
-          className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-          style={
-            {
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE
-            }
-          }
-          side={side}>
-          <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
-          </SheetHeader>
-          <div className="flex h-full w-full flex-col">{children}</div>
-        </SheetContent>
-      </Sheet>
-    );
+    return null; // Mobile drawer not implemented in this version
   }
 
   return (
@@ -290,7 +255,7 @@ function SidebarInput({
   ...props
 }) {
   return (
-    <Input
+    <input
       data-slot="sidebar-input"
       data-sidebar="input"
       className={cn("h-8 w-full bg-background shadow-none", className)}
@@ -487,26 +452,7 @@ function SidebarMenuButton({
       {...props} />
   )
 
-  if (!tooltip) {
-    return button
-  }
-
-  if (typeof tooltip === "string") {
-    tooltip = {
-      children: tooltip,
-    }
-  }
-
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
-      <TooltipContent
-        side="right"
-        align="center"
-        hidden={state !== "collapsed" || isMobile}
-        {...tooltip} />
-    </Tooltip>
-  );
+  return button
 }
 
 function SidebarMenuAction({
@@ -564,14 +510,14 @@ function SidebarMenuSkeleton({
       className={cn("flex h-8 items-center gap-2 rounded-md px-2", className)}
       {...props}>
       {showIcon && (
-        <Skeleton className="size-4 rounded-md" data-sidebar="menu-skeleton-icon" />
+        <div className="size-4 rounded-md bg-gray-200 animate-pulse" data-sidebar="menu-skeleton-icon" />
       )}
-      <Skeleton
-        className="h-4 max-w-(--skeleton-width) flex-1"
+      <div
+        className="h-4 bg-gray-200 animate-pulse rounded-md"
         data-sidebar="menu-skeleton-text"
         style={
           {
-            "--skeleton-width": width
+            width: width
           }
         } />
     </div>
