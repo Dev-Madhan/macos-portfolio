@@ -161,10 +161,10 @@ const photosLinks = [
 ];
 
 const gallery = [
-  { id: 1, img: "/images/gal1.png" },
-  { id: 2, img: "/images/gal2.png" },
-  { id: 3, img: "/images/gal3.png" },
-  { id: 4, img: "/images/gal4.png" },
+  { id: 1, img: "/images/gal-1.jpeg" },
+  { id: 2, img: "/images/gal-2.jpeg" },
+  { id: 3, img: "/images/gal-3.jpeg" },
+  { id: 4, img: "/images/gal-4.jpeg" },
 ];
 
 export {
@@ -406,36 +406,14 @@ const ABOUT_LOCATION = {
     },
     {
       id: 2,
-      name: "casual-me.png",
+      name: "profile-pic.png",
       icon: "/images/image.png",
       kind: "file",
       fileType: "img",
       position: "top-28 right-72",
-      imageUrl: "/images/sruthika-1.jpg",
+      imageUrl: "/images/profile-pic.jpg",
       size: "268 KB",
       created: "Mar 15, 2026",
-    },
-    {
-      id: 3,
-      name: "childhood-me.png",
-      icon: "/images/image.png",
-      kind: "file",
-      fileType: "img",
-      position: "top-52 left-80",
-      imageUrl: "/images/childhood-me.jpeg",
-      size: "25 KB",
-      created: "Dec 20, 2025",
-    },
-    {
-      id: 5,
-      name: "childhood-grp.png",
-      icon: "/images/image.png",
-      kind: "file",
-      fileType: "img",
-      position: "bottom-10 right-5",
-      imageUrl: "/images/childhood-grp.jpeg",
-      size: "77 KB",
-      created: "Oct 5, 2025",
     },
     {
       id: 4,
@@ -445,7 +423,7 @@ const ABOUT_LOCATION = {
       fileType: "txt",
       position: "top-60 left-5",
       subtitle: "Meet the Designer Behind the Experience",
-      image: "/images/sruthika-1.jpg",
+      image: "/images/profile-pic.jpg",
       description: [
         "Hey! I’m Sruthika 👋, a UI/UX Designer who enjoys building sleek, interactive designs that actually work well.",
         "I specialize in User Experience, Interaction Design, and Figma and I love making things feel smooth, fast, and just a little bit delightful.",

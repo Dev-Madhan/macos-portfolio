@@ -124,10 +124,10 @@ const Photos = () => {
 
     // Initial images data
     const INITIAL_IMAGES = [
-        { id: 'g1', url: '/images/gal-1.jpg', span: 'col-span-2 row-span-2', name: 'Mountain Peak', categories: ['Library', 'Memories'], size: '2.4 MB', date: 'Oct 12, 2023 at 4:20 PM' },
-        { id: 'g2', url: '/images/gal-2.jpg', span: 'col-span-1 row-span-2', name: 'Forest Path', categories: ['Library', 'Places'], size: '1.8 MB', date: 'Sep 28, 2023 at 11:15 AM' },
-        { id: 'g3', url: '/images/gal-3.jpg', span: 'col-span-1 row-span-1', name: 'Neon City', categories: ['Library', 'Memories'], size: '3.1 MB', date: 'Nov 05, 2023 at 8:45 PM' },
-        { id: 'g4', url: '/images/gal-4.jpg', span: 'col-span-2 row-span-1', name: 'Golden Hour', categories: ['Library', 'People'], size: '2.9 MB', date: 'Dec 01, 2023 at 5:10 PM' },
+        { id: 'g1', url: '/images/gal-1.jpeg', span: 'col-span-2 row-span-2', name: 'Libary Peak', categories: ['Library', 'Memories'], size: '26 KB', date: 'Oct 12, 2023 at 4:20 PM' },
+        { id: 'g2', url: '/images/gal-2.jpeg', span: 'col-span-1 row-span-2', name: 'Forest Path', categories: ['Library', 'Places'], size: '77 KB', date: 'Sep 28, 2023 at 11:15 AM' },
+        { id: 'g3', url: '/images/gal-3.jpeg', span: 'col-span-1 row-span-1', name: 'Neon City', categories: ['Library', 'Memories'], size: '153 KB', date: 'Nov 05, 2023 at 8:45 PM' },
+        { id: 'g4', url: '/images/gal-4.jpeg', span: 'col-span-2 row-span-1', name: 'Golden Hour', categories: ['Library', 'People'], size: '963 KB', date: 'Dec 01, 2023 at 5:10 PM' },
     ];
 
     // Category-mapped gallery images with persistence

@@ -77,7 +77,7 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
       {/* User Login */}
       <div className="login-card-anim relative mt-16 sm:absolute sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 flex flex-col items-center z-10">
         <img
-          src="/images/sruthika-1.jpg"
+          src="/images/profile-pic.jpg"
           alt="Sruthika"
           className="w-24 h-24 rounded-full object-cover object-top border-2 border-white/20 shadow-2xl mb-5"
         />
