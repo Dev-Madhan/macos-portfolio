@@ -19,4 +19,31 @@ export default defineConfig({
       "@": path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('framer-motion') || id.includes('motion')) {
+              return 'vendor-motion';
+            }
+            if (id.includes('gsap')) {
+              return 'vendor-gsap';
+            }
+            if (id.includes('react-pdf')) {
+              return 'vendor-pdf';
+            }
+            if (id.includes('lucide-react') || id.includes('radix-ui')) {
+              return 'vendor-ui';
+            }
+            if (id.includes('react/') || id.includes('react-dom/') || id.includes('react@') || id.includes('react-dom@')) {
+              return 'vendor-react';
+            }
+            return 'vendor'; // all other node_modules
+          }
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000,
+  }
 })
