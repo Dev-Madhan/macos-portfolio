@@ -4,10 +4,17 @@ import tailwindcss from '@tailwindcss/vite'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), ViteImageOptimizer({
+    jpg: { quality: 80 },
+    jpeg: { quality: 80 },
+    png: { quality: 80 },
+    webp: { lossless: true },
+  })],
   resolve: {
     alias: {
       "#components": path.resolve(__dirname, './src/components'),

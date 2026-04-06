@@ -1,12 +1,38 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import gsap from 'gsap';
 import { Dock, Navbar, Welcome, Home, LockScreen } from '#components'
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion'
 import { Draggable } from 'gsap/Draggable';
-import { Terminal, Safari, Resume, Finder, ImageViewer, TextFile, Contact, Photos, Archive } from '#windows';
 import useWindowStore from '#store/window';
 gsap.registerPlugin(Draggable);
+
+// Lazy-load heavy window applications to strictly reduce main thread blocking
+const Terminal = lazy(() => import('#windows/Terminal'));
+const Safari = lazy(() => import('#windows/Safari'));
+const Resume = lazy(() => import('#windows/Resume'));
+const Finder = lazy(() => import('#windows/Finder'));
+const ImageViewer = lazy(() => import('#windows/ImageViewer'));
+const TextFile = lazy(() => import('#windows/text'));
+const Contact = lazy(() => import('#windows/Contact'));
+const Photos = lazy(() => import('#windows/Photos'));
+const Archive = lazy(() => import('#windows/Archive'));
+
+const LazyWindow = ({ id, Component }) => {
+  const isOpen = useWindowStore((state) => state.windows[id]?.isOpen);
+  const [hasMounted, setHasMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isOpen && !hasMounted) {
+      setHasMounted(true);
+    }
+  }, [isOpen, hasMounted]);
+
+  // Only start downloading the heavy JS chunks if the user actually clicks to open the app!
+  if (!hasMounted) return null;
+  
+  return <Component />;
+}
 
 const App = () => {
   const isLocked = useWindowStore((state) => state.isLocked);
@@ -31,15 +57,17 @@ const App = () => {
       <Dock />
 
       <div className='hidden md:block'>
-        <Terminal />
-        <Safari />
-        <Resume />
-        <Finder />
-        <ImageViewer />
-        <TextFile />
-        <Contact />
-        <Photos />
-        <Archive />
+        <Suspense fallback={null}>
+          <LazyWindow id="terminal" Component={Terminal} />
+          <LazyWindow id="safari" Component={Safari} />
+          <LazyWindow id="resume" Component={Resume} />
+          <LazyWindow id="finder" Component={Finder} />
+          <LazyWindow id="imageviewer" Component={ImageViewer} />
+          <LazyWindow id="text" Component={TextFile} />
+          <LazyWindow id="contact" Component={Contact} />
+          <LazyWindow id="photos" Component={Photos} />
+          <LazyWindow id="archive" Component={Archive} />
+        </Suspense>
       </div>
     </main>
   )

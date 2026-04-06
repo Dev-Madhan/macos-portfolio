@@ -209,7 +209,7 @@ const SearchResultsPage = ({ action, onBack, onNavigate }) => {
 
                     <div
                         id="serp-search-box"
-                        className="flex items-center gap-2 flex-1 max-w-[600px] h-[44px] bg-white border-2 border-[#dfe1e5] rounded-[22px] px-4 hover:shadow-[0_1px_6px_rgba(32,33,36,0.28)] hover:border-gray-300 transition-all cursor-pointer"
+                        className="flex items-center gap-2 flex-1 max-w-[600px] h-[44px] bg-white border-2 border-[#dfe1e5] rounded-[22px] px-4 hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] hover:border-gray-300 transition-all cursor-pointer"
                         onClick={onBack}
                     >
                         <Search size={16} className="text-[#4285F4] shrink-0" />
@@ -692,7 +692,7 @@ const SafariWindow = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
-                                className="flex-1 overflow-auto flex flex-col"
+                                className="flex-1 overflow-auto flex flex-col [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
                             >
                                 {/* Top Nav */}
                                 <div className="absolute top-0 right-0 p-4 flex items-center gap-4 text-[13px] text-gray-700 z-10">
@@ -734,7 +734,7 @@ const SafariWindow = () => {
                                     >
                                         <div
                                             id="google-search-box"
-                                            className="flex flex-col w-full bg-white border-2 border-[#dfe1e5] shadow-[0_1px_6px_rgba(32,33,36,0.1)] rounded-[24px] overflow-hidden"
+                                            className="flex flex-col w-full bg-white border-2 border-[#dfe1e5] shadow-[0_1px_4px_rgba(0,0,0,0.08)] rounded-[24px] overflow-hidden"
                                         >
                                             <div className="flex items-center min-h-[46px] px-4.5">
                                                 <div className="flex items-center justify-center p-3 text-[#9aa0a6] transition-colors group-focus-within:text-[#4285F4]">
@@ -747,11 +747,11 @@ const SafariWindow = () => {
                                                         onChange={e => setQuery(e.target.value)}
                                                         onFocus={() => {
                                                             setIsFocused(true);
-                                                            gsap.to("#google-search-box", { boxShadow: "0 4px 6px rgba(32,33,36,0.28)", borderColor: "transparent", duration: 0.35, ease: "power3.out" });
+                                                            gsap.to("#google-search-box", { boxShadow: "0 2px 8px rgba(0,0,0,0.12)", borderColor: "transparent", duration: 0.8, ease: "power3.inOut" });
                                                         }}
                                                         onBlur={() => {
                                                             setIsFocused(false);
-                                                            gsap.to("#google-search-box", { boxShadow: "0 1px 6px rgba(32,33,36,0.1)", borderColor: "#dfe1e5", duration: 0.6, ease: "power3.out" });
+                                                            gsap.to("#google-search-box", { boxShadow: "0 1px 4px rgba(0,0,0,0.08)", borderColor: "#dfe1e5", duration: 0.8, ease: "power3.inOut" });
                                                         }}
                                                         onKeyDown={handleKeyDown}
                                                         className="flex-1 w-full bg-transparent border-none outline-none text-[#202124] text-[16px] py-2 px-1 autofill:bg-transparent focus:ring-0 z-10"
@@ -798,7 +798,10 @@ const SafariWindow = () => {
                                                         initial={{ opacity: 0, height: 0 }}
                                                         animate={{ opacity: 1, height: "auto" }}
                                                         exit={{ opacity: 0, height: 0 }}
-                                                        transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+                                                        transition={{ 
+                                                            duration: 0.8,
+                                                            ease: [0.23, 1, 0.32, 1] 
+                                                        }}
                                                         className="overflow-hidden border-t border-gray-200/50 pb-3"
                                                     >
                                                         <ul ref={listRef} className="py-2 max-h-[268px] overflow-y-auto scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
