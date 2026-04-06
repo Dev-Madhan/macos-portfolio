@@ -707,9 +707,14 @@ const SafariWindow = () => {
                                 </div>
 
                                 {/* Center Content */}
-                                <motion.div layout className="flex-1 flex flex-col items-center justify-center -mt-12 scale-[0.85] sm:scale-100">
+                                <motion.div className="flex-1 flex flex-col items-center justify-center -mt-12 scale-[0.85] sm:scale-100">
                                     {/* Logo */}
-                                    <motion.div layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8 select-none">
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }} 
+                                        animate={{ opacity: 1, y: 0 }} 
+                                        transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                                        className="mb-8 select-none"
+                                    >
                                         <h1 className="text-[72px] sm:text-[92px] font-medium tracking-tight flex items-center">
                                             <span className="text-[#4285F4]">G</span>
                                             <span className="text-[#EA4335]">o</span>
@@ -722,9 +727,9 @@ const SafariWindow = () => {
 
                                     {/* Search Box */}
                                     <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
+                                        initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.1, duration: 0.5, ease: "power3.out" }}
+                                        transition={{ delay: 0.1, duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                                         className="w-full max-w-[584px] px-4 group relative z-50"
                                     >
                                         <div
@@ -835,7 +840,12 @@ const SafariWindow = () => {
                                     </motion.div>
 
                                     {/* Buttons */}
-                                    <motion.div layout initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex items-center gap-3 pt-7">
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }} 
+                                        animate={{ opacity: 1, y: 0 }} 
+                                        transition={{ delay: 0.2, duration: 0.4, ease: [0.23, 1, 0.32, 1] }} 
+                                        className="flex items-center gap-3 pt-7"
+                                    >
                                         <button className="px-4 py-2 bg-[#f8f9fa] border border-[#f8f9fa] hover:border-[#dadce0] hover:shadow-sm rounded-md text-[14px] text-[#3c4043] transition-all">
                                             Google Search
                                         </button>
@@ -845,7 +855,12 @@ const SafariWindow = () => {
                                     </motion.div>
 
                                     {/* Language */}
-                                    <motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="mt-6 text-[13px] text-[#4d5156]">
+                                    <motion.div 
+                                        initial={{ opacity: 0, y: 10 }} 
+                                        animate={{ opacity: 1, y: 0 }} 
+                                        transition={{ delay: 0.3, duration: 0.4, ease: [0.23, 1, 0.32, 1] }} 
+                                        className="mt-6 text-[13px] text-[#4d5156]"
+                                    >
                                         Google offered in:
                                         <span className="text-[#1a0dab] hover:underline cursor-pointer px-1">हिन्दी</span>
                                         <span className="text-[#1a0dab] hover:underline cursor-pointer px-1">বাংলা</span>
