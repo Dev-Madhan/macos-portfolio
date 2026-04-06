@@ -44,7 +44,7 @@ const dockApps = [
   },
   {
     id: "safari",
-    name: "Articles", // was "Safari"
+    name: "Safari",
     icon: "safari.png",
     canOpen: true,
   },
@@ -71,30 +71,6 @@ const dockApps = [
     name: "Archive", // was "Trash"
     icon: "trash.png",
     canOpen: true,
-  },
-];
-
-const blogPosts = [
-  {
-    id: 1,
-    date: "Mar 15, 2026",
-    title: "The Psychology of Color in UI Design: Why It Matters",
-    image: "/images/blog1.png",
-    link: "https://mockflow.com/blog/color-psychology-in-ui-design",
-  },
-  {
-    id: 2,
-    date: "Feb 28, 2026",
-    title: "Mastering Auto Layout in Figma for Faster Workflows",
-    image: "/images/blog2.png",
-    link: "https://help.figma.com/hc/en-us/articles/360040451373-Guide-to-auto-layout",
-  },
-  {
-    id: 3,
-    date: "Jan 10, 2026",
-    title: "Principles of Minimalist UX Design for Modern Apps",
-    image: "/images/blog3.png",
-    link: "https://ixdf.org/literature/topics",
   },
 ];
 
@@ -195,7 +171,6 @@ export {
   navLinks,
   navIcons,
   dockApps,
-  blogPosts,
   techStack,
   socials,
   photosLinks,

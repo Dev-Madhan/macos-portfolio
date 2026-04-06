@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
-import { photosLinks, gallery, projects, blogPosts } from '#constants';
+import { photosLinks, gallery, projects } from '#constants';
 import useWindowStore from '#store/window';
 import { motion, AnimatePresence } from 'framer-motion';
 // import gsap from 'gsap'; 
