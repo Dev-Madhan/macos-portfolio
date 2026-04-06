@@ -62,11 +62,11 @@ const App = () => {
           <LazyWindow id="safari" Component={Safari} />
           <LazyWindow id="resume" Component={Resume} />
           <LazyWindow id="finder" Component={Finder} />
-          <LazyWindow id="imageviewer" Component={ImageViewer} />
-          <LazyWindow id="text" Component={TextFile} />
+          <LazyWindow id="imgfile" Component={ImageViewer} />
+          <LazyWindow id="txtfile" Component={TextFile} />
           <LazyWindow id="contact" Component={Contact} />
           <LazyWindow id="photos" Component={Photos} />
-          <LazyWindow id="archive" Component={Archive} />
+          <LazyWindow id="trash" Component={Archive} />
         </Suspense>
       </div>
     </main>

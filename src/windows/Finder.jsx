@@ -36,7 +36,8 @@ import {
 const TAG_COLORS = [null, '#ff6b6b', '#ffb347', '#ffd93d', '#6bcb77', '#4d96ff', '#c77dff'];
 
 const Finder = ({ item }) => {
-    const { closeWindow, openWindow } = useWindowStore();
+    const closeWindow = useWindowStore((state) => state.closeWindow);
+    const openWindow = useWindowStore((state) => state.openWindow);
     const [currentFolder, setCurrentFolder] = useState(item || locations.work);
     const [viewMode, setViewMode] = useState('grid');
     const [searchQuery, setSearchQuery] = useState('');
@@ -99,7 +100,7 @@ const Finder = ({ item }) => {
     const favorites = [
       { id: 'about', label: 'About me', icon: User, folder: locations.about },
       { id: 'resume', label: 'Resume', icon: FileText, folder: locations.resume },
-      { id: 'trash', label: 'Trash', icon: Trash2, folder: locations.trash },
+      { id: 'trash', label: 'Archive', icon: Trash2, folder: locations.trash },
     ];
 
     const workProjects = locations.work.children;

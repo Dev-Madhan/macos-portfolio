@@ -18,7 +18,9 @@ function gaussianScale(dist) {
 }
 
 const Dock = () => {
-    const { openWindow, closeWindow, windows } = useWindowStore();
+    const openWindow = useWindowStore((state) => state.openWindow);
+    const closeWindow = useWindowStore((state) => state.closeWindow);
+    const windows = useWindowStore((state) => state.windows);
     const dockRef = useRef(null);
 
     const { contextSafe } = useGSAP({ scope: dockRef });
@@ -53,8 +55,8 @@ const Dock = () => {
             gsap.to(icon, {
                 scale: 1,
                 y: 0,
-                duration: 0.45,
-                ease: 'elastic.out(1, 0.6)',
+                duration: 0.6,
+                ease: 'elastic.out(1.2, 0.5)', // Snappier return with more distinct bounce
                 transformOrigin: 'bottom center',
                 overwrite: 'auto',
             });
@@ -66,16 +68,14 @@ const Dock = () => {
         
         const windowState = windows[id];
 
-        // MacOS-style bounce animation
-        gsap.to(element, {
-            y: -20,
-            duration: 0.15,
-            yoyo: true,
-            repeat: 1,
-            ease: "power2.out"
-        });
+        // Double jump bounce sequence
+        const tl = gsap.timeline();
+        tl.to(element, { y: -28, duration: 0.12, ease: "power2.out" })
+          .to(element, { y: 0, duration: 0.12, ease: "power2.in" })
+          .to(element, { y: -14, duration: 0.1, ease: "power2.out" })
+          .to(element, { y: 0, duration: 0.1, ease: "power2.in" });
 
-        if (windowState.isOpen) {
+        if (windowState?.isOpen) {
             closeWindow(id);
         } else {
             openWindow(id);

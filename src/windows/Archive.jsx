@@ -5,7 +5,8 @@ import { Trash2 } from 'lucide-react';
 import { locations } from '#constants';
 
 const Archive = () => {
-    const { closeWindow, openWindow } = useWindowStore();
+    const closeWindow = useWindowStore((state) => state.closeWindow);
+    const openWindow = useWindowStore((state) => state.openWindow);
     const trashItems = locations.trash.children;
 
     return (

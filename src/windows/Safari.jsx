@@ -499,7 +499,7 @@ const SearchResultsPage = ({ action, onBack, onNavigate }) => {
 
 // ─── Main Component ─────────────────────────────────────────────────────────
 const SafariWindow = () => {
-    const { closeWindow } = useWindowStore();
+    const closeWindow = useWindowStore((state) => state.closeWindow);
     
     const contentRef = useRef(null);
     const listRef = useRef(null);

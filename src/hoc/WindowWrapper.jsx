@@ -9,8 +9,10 @@ import { useGSAP } from '@gsap/react';
 
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
-        const { focusWindow, windows } = useWindowStore();
-        const { isOpen, zIndex, data } = windows[windowKey];
+        const focusWindow = useWindowStore((state) => state.focusWindow);
+        const isOpen = useWindowStore((state) => state.windows[windowKey].isOpen);
+        const zIndex = useWindowStore((state) => state.windows[windowKey].zIndex);
+        const data = useWindowStore((state) => state.windows[windowKey].data);
         const ref = useRef(null);
 
         useGSAP(() => {
@@ -38,12 +40,17 @@ const WindowWrapper = (Component, windowKey) => {
                     >
                         <motion.div
                             className="size-full"
-                            initial={{ opacity: 0, scale: 0.94 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.94 }}
+                            initial={{ opacity: 0, scale: 0.94, filter: "blur(4px)" }}
+                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                            exit={{ 
+                                opacity: 0, 
+                                scale: 0.97, 
+                                filter: "blur(4px)",
+                                transition: { duration: 0.13, ease: "easeOut" } 
+                            }}
                             transition={{ 
-                                duration: 0.3,
-                                ease: [0.22, 1, 0.36, 1]
+                                duration: 0.32, 
+                                ease: [0.22, 1, 0.36, 1] 
                             }}
                         >
                             <Component {...props} item={data} />
