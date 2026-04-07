@@ -20,16 +20,14 @@ const Archive = lazy(() => import('#windows/Archive'));
 
 const LazyWindow = ({ id, Component }) => {
   const isOpen = useWindowStore((state) => state.windows[id]?.isOpen);
-  const [hasMounted, setHasMounted] = React.useState(false);
+  const hasMounted = React.useRef(false);
 
-  React.useEffect(() => {
-    if (isOpen && !hasMounted) {
-      setHasMounted(true);
-    }
-  }, [isOpen, hasMounted]);
+  if (isOpen) {
+    hasMounted.current = true;
+  }
 
   // Only start downloading the heavy JS chunks if the user actually clicks to open the app!
-  if (!hasMounted) return null;
+  if (!hasMounted.current) return null;
   
   return <Component />;
 }
@@ -57,17 +55,33 @@ const App = () => {
       <Dock />
 
       <div className='hidden md:block'>
-        <Suspense fallback={null}>
-          <LazyWindow id="terminal" Component={Terminal} />
-          <LazyWindow id="safari" Component={Safari} />
-          <LazyWindow id="resume" Component={Resume} />
-          <LazyWindow id="finder" Component={Finder} />
-          <LazyWindow id="imgfile" Component={ImageViewer} />
-          <LazyWindow id="txtfile" Component={TextFile} />
-          <LazyWindow id="contact" Component={Contact} />
-          <LazyWindow id="photos" Component={Photos} />
-          <LazyWindow id="trash" Component={Archive} />
-        </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="terminal" Component={Terminal} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="safari" Component={Safari} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="resume" Component={Resume} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="finder" Component={Finder} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="imgfile" Component={ImageViewer} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="txtfile" Component={TextFile} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="contact" Component={Contact} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="photos" Component={Photos} />
+          </Suspense>
+          <Suspense fallback={null}>
+            <LazyWindow id="trash" Component={Archive} />
+          </Suspense>
       </div>
     </main>
   )

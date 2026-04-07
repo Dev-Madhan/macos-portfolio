@@ -1,61 +1,103 @@
 import useWindowStore from '#store/window'
-import React, { useRef } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
-// eslint-disable-next-line no-unused-vars
+import React, { useRef, useEffect } from 'react'
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import gsap from 'gsap'; 
 import { Draggable } from 'gsap/Draggable';
 import { useGSAP } from '@gsap/react';
 
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
+        const { isOpen, data, zIndex } = useWindowStore((state) => state.windows[windowKey]);
         const focusWindow = useWindowStore((state) => state.focusWindow);
-        const isOpen = useWindowStore((state) => state.windows[windowKey].isOpen);
-        const zIndex = useWindowStore((state) => state.windows[windowKey].zIndex);
-        const data = useWindowStore((state) => state.windows[windowKey].data);
-        const ref = useRef(null);
+        const clickPosition = useWindowStore((state) => state.windows[windowKey].clickPosition);
+        const dragRef = useRef(null);
+        const contentRef = useRef(null);
 
+        // Initial opening animation using GSAP
         useGSAP(() => {
-            if (isOpen && ref.current) {
-                const dr = Draggable.create(ref.current, {
-                    type: "top,left",
+            if (isOpen && dragRef.current) {
+                // Initial set to prevent jump if we have a click position
+                if (clickPosition) {
+                    const rect = dragRef.current.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const startX = clickPosition.x - centerX;
+                    const startY = clickPosition.y - centerY;
+                    gsap.set(dragRef.current, { x: startX, y: startY });
+                }
+
+                // Scope handles to THIS specific window's elements to prevent multi-dragging bugs
+                const headerHandle = dragRef.current.querySelector('.window-header');
+
+                const [draggable] = Draggable.create(dragRef.current, {
+                    type: "x,y",
+                    edgeResistance: 0.65,
                     bounds: "#main-screen",
-                    handle: ref.current.querySelector(".window-header"),
-                    dragClickables: false, // Ensure clicks on buttons inside translate to the close function
+                    handle: headerHandle || ".window-header",
+                    cancel: ".close, .minimize, .maximize, button, input, select, textarea", // Use classes instead of global IDs for cancel
                     onPress: () => focusWindow(windowKey),
-                    zIndexBoost: false
+                    onDragStart: () => focusWindow(windowKey),
+                    force3D: true,
+                    allowEventDefault: true
                 });
-                return () => dr[0].kill();
+
+                if (clickPosition) {
+                    gsap.to(dragRef.current, 
+                        { 
+                            x: 0, 
+                            y: 0, 
+                            duration: 0.52, 
+                            ease: "elastic.out(1, 0.75)",
+                            overwrite: "auto",
+                            onComplete: () => {
+                                draggable.update();
+                            }
+                        }
+                    );
+                } else {
+                    gsap.set(dragRef.current, { x: 0, y: 0 });
+                    draggable.update();
+                }
+
+                return () => {
+                    if (draggable) draggable.kill();
+                };
             }
         }, [isOpen]);
 
         return (
             <AnimatePresence>
                 {isOpen && (
-                    <section
-                        id={windowKey}
-                        ref={ref}
-                        style={{ zIndex }}
+                    <div 
+                        ref={dragRef}
+                        id={windowKey === 'imgfile' ? 'imgfile' : windowKey === 'txtfile' ? 'txtfile' : windowKey === 'trash' ? 'trash' : windowKey}
                         className="absolute"
+                        style={{ zIndex }}
+                        onMouseDown={() => focusWindow(windowKey)} // Ensure window focuses on any click
                     >
-                        <motion.div
-                            className="size-full"
-                            initial={{ opacity: 0, scale: 0.94, filter: "blur(4px)" }}
-                            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                            exit={{ 
-                                opacity: 0, 
-                                scale: 0.97, 
-                                filter: "blur(4px)",
-                                transition: { duration: 0.13, ease: "easeOut" } 
+                        <motion.section
+                            ref={contentRef}
+                            className="size-full origin-center"
+                            initial={{
+                                opacity: 0,
+                                scale: 0.2,
+                                filter: 'blur(15px)'
                             }}
-                            transition={{ 
-                                duration: 0.32, 
-                                ease: [0.22, 1, 0.36, 1] 
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                                filter: 'blur(0px)'
+                            }}
+                            exit={{
+                                opacity: 0,
+                                scale: 0.2,
+                                filter: 'blur(15px)',
+                                transition: { duration: 0.25, ease: "easeIn" }
                             }}
                         >
                             <Component {...props} item={data} />
-                        </motion.div>
-                    </section>
+                        </motion.section>
+                    </div>
                 )}
             </AnimatePresence>
         );

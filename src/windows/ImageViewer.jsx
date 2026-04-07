@@ -64,6 +64,8 @@ const ImageViewer = ({ item }) => {
     };
 
     useEffect(() => {
+        setIsImageLoaded(false);
+        setImageError(false);
         if (imgRef.current && imgRef.current.complete) {
             handleImageLoad({ target: imgRef.current });
         }

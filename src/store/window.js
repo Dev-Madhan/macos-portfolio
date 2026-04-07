@@ -18,11 +18,12 @@ const useWindowStore = create(
       sessionStorage.setItem("is_locked", "false");
     }),
 
-    openWindow: (windowKey, data = null) =>
+    openWindow: (windowKey, data = null, clickPosition = null) =>
       set((state) => {
         const win = state.windows[windowKey];
         win.isOpen = true;
         win.data = data ?? win.data;
+        win.clickPosition = clickPosition;
         win.zIndex = state.nextZIndex;
         state.nextZIndex++;
       }),

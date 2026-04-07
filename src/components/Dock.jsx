@@ -20,6 +20,7 @@ function gaussianScale(dist) {
 const Dock = () => {
     const openWindow = useWindowStore((state) => state.openWindow);
     const closeWindow = useWindowStore((state) => state.closeWindow);
+    const focusWindow = useWindowStore((state) => state.focusWindow);
     const windows = useWindowStore((state) => state.windows);
     const dockRef = useRef(null);
 
@@ -75,10 +76,14 @@ const Dock = () => {
           .to(element, { y: -14, duration: 0.1, ease: "power2.out" })
           .to(element, { y: 0, duration: 0.1, ease: "power2.in" });
 
-        if (windowState?.isOpen) {
-            closeWindow(id);
+        const rect = element.getBoundingClientRect();
+        const clickPosition = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+
+        if (!windowState?.isOpen) {
+            openWindow(id, null, clickPosition);
         } else {
-            openWindow(id);
+            // If already open, just focus it
+            focusWindow(id);
         }
     });
 

@@ -155,7 +155,7 @@ body {
     @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter;
     @apply w-[calc(100vw-32px)] h-[80vh] top-12 left-4;
     @apply md:w-[calc(100vw-64px)] md:h-[70vh] md:top-20 md:left-8;
-    @apply lg:w-[896px] lg:h-[600px] lg:top-32 lg:left-[calc(50%-448px)];
+    @apply lg:w-[896px] lg:h-[600px] lg:top-[calc(50%-300px)] lg:left-[calc(50%-448px)];
 
     .search {
       @apply flex items-center gap-3 w-2/3 bg-white border border-gray-300 rounded-lg px-3 py-2;
@@ -199,7 +199,7 @@ body {
   }
 
   #terminal {
-    @apply w-[640px] absolute top-32 left-1/12 bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-roboto;
+    @apply w-[640px] absolute top-[calc(50%-300px)] left-[calc(50%-320px)] bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-roboto;
 
     h2 {
       @apply font-semibold text-[13px] text-[#4d4d4d] text-center w-full font-inter;
@@ -260,10 +260,9 @@ body {
   ══════════════════════════════════════════════════════════════════════════ */
 
   #contact {
-    @apply absolute font-mona font-medium;
+    @apply absolute inset-0 m-auto font-mona font-medium;
     width: 640px;
-    top: 20vh;
-    left: calc(50% - 320px);
+    height: fit-content;
   }
 
   /* ── Root shell: Finder style ── */
@@ -560,7 +559,7 @@ body {
     @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter border border-white/20;
     @apply w-[calc(100vw-32px)] h-[70vh] top-16 left-4;
     @apply md:w-[calc(100vw-64px)] md:h-[65vh] md:top-24 md:left-8;
-    @apply lg:w-[940px] lg:h-[620px] lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2;
+    @apply lg:w-[940px] lg:h-[620px] lg:top-[calc(50%-310px)] lg:left-[calc(50%-470px)];
 
     .sidebar {
       @apply w-3/12 flex-none bg-gray-50 border-r border-gray-200 flex flex-col p-5;
@@ -620,7 +619,7 @@ body {
   }
 
   #resume {
-    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute top-20 left-1/2 -translate-x-1/2 z-50 rounded-xl overflow-hidden shadow-2xl drop-shadow-2xl;
+    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute inset-0 m-auto z-50 rounded-xl overflow-hidden shadow-2xl drop-shadow-2xl;
 
     #window-header {
       h2 {
@@ -633,7 +632,7 @@ body {
     @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden font-inter border border-white/20;
     @apply w-[calc(100vw-32px)] h-[70vh] top-16 left-4;
     @apply md:w-[calc(100vw-64px)] md:h-[65vh] md:top-24 md:left-8;
-    @apply lg:w-[940px] lg:h-[620px] lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2;
+    @apply lg:w-[940px] lg:h-[620px] lg:top-[calc(50%-310px)] lg:left-[calc(50%-470px)];
 
     .sidebar {
       @apply w-48 bg-gray-50 border-r border-gray-200 flex flex-col p-5 space-y-3;
@@ -681,7 +680,7 @@ body {
   }
 
   #txtfile {
-    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute top-20 left-1/2 -translate-x-1/2 z-50 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
+    @apply w-[768px] max-w-[90vw] h-[80vh] max-h-[900px] absolute inset-0 m-auto z-50 bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
 
     h2 {
       @apply font-bold text-sm text-center w-full;
@@ -691,13 +690,13 @@ body {
   #imgfile {
     @apply absolute bg-white shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden;
     @apply w-[calc(100vw-32px)] h-[75vh] top-16 left-4;
-    @apply md:w-[680px] md:h-[580px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2;
+    @apply md:w-[680px] md:h-[580px] md:absolute md:inset-0 md:m-auto;
   }
 
   #trash {
     @apply absolute bg-white/95 backdrop-blur-xl shadow-2xl drop-shadow-2xl rounded-xl overflow-hidden border border-gray-200/50;
     @apply w-[calc(100vw-32px)] h-[60vh] top-16 left-4;
-    @apply md:w-[600px] md:h-[450px] md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2;
+    @apply md:w-[600px] md:h-[450px] md:absolute md:inset-0 md:m-auto;
   }
 
   #home {
