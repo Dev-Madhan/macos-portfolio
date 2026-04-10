@@ -124,10 +124,12 @@ const Photos = () => {
 
     // Initial images data
     const INITIAL_IMAGES = [
-        { id: 'g1', url: '/images/gal-1.jpeg', span: 'col-span-2 row-span-2', name: 'Libary Peak', categories: ['Library', 'Memories'], size: '26 KB', date: 'Oct 12, 2023 at 4:20 PM' },
-        { id: 'g2', url: '/images/gal-2.jpeg', span: 'col-span-1 row-span-2', name: 'Forest Path', categories: ['Library', 'Places'], size: '77 KB', date: 'Sep 28, 2023 at 11:15 AM' },
-        { id: 'g3', url: '/images/gal-3.jpeg', span: 'col-span-1 row-span-1', name: 'Neon City', categories: ['Library', 'Memories'], size: '153 KB', date: 'Nov 05, 2023 at 8:45 PM' },
-        { id: 'g4', url: '/images/gal-4.jpeg', span: 'col-span-2 row-span-1', name: 'Golden Hour', categories: ['Library', 'People'], size: '963 KB', date: 'Dec 01, 2023 at 5:10 PM' },
+        { id: 'g1', url: '/images/gal-1.jpeg', span: 'col-span-2 row-span-2', name: 'Childhood sruthika', categories: ['Library', 'Memories'], size: '26 KB', date: 'Oct 12, 2023 at 4:20 PM' },
+        { id: 'g2', url: '/images/gal-2.jpeg', span: 'col-span-1 row-span-2', name: 'Childhood group pic', categories: ['Library', 'Closed ones'], size: '77 KB', date: 'Sep 28, 2023 at 11:15 AM' },
+        { id: 'g4', url: '/images/gal-4.jpeg', span: 'col-span-2 row-span-2', name: 'Cadence Crew', categories: ['Library', 'People', 'Closed ones'], size: '963 KB', date: 'Dec 01, 2023 at 5:10 PM' },
+        { id: 'g3', url: '/images/gal-3.jpeg', span: 'col-span-1 row-span-2', name: 'With Shivani', categories: ['Library', 'Memories', 'Closed ones'], size: '153 KB', date: 'Nov 05, 2023 at 8:45 PM' },
+        { id: 'g5', url: '/images/gal-5.jpeg', span: 'col-span-2 row-span-2', name: 'CSBS Good Souls', categories: ['Library', 'Memories', 'Closed ones'], size: '900 KB', date: 'Feb 15, 2024 at 10:20 AM' },
+        { id: 'g6', url: '/images/gal-6.jpeg', span: 'col-span-1 row-span-2', name: 'With Maddy', categories: ['Library', 'Memories'], size: '801 KB', date: 'Mar 10, 2024 at 12:30 PM' },
     ];
 
     // Category-mapped gallery images with persistence
@@ -206,26 +208,20 @@ const Photos = () => {
         }
     };
 
-    // Auto-scroll to bottom with small delay to avoid jitter during intro animation
+    // Scroll to top when tab changes
     useEffect(() => {
-        const timeout = setTimeout(() => {
-            if (contentRef.current) {
-                const container = contentRef.current.parentElement;
-                if (container) {
-                    container.scrollTo({
-                        top: container.scrollHeight,
-                        behavior: 'smooth'
-                    });
-                }
+        if (contentRef.current) {
+            const container = contentRef.current.parentElement;
+            if (container) {
+                container.scrollTop = 0;
             }
-        }, 500); 
-        return () => clearTimeout(timeout);
-    }, [activeTab, viewMode]);
+        }
+    }, [activeTab]);
 
     const tabs = [
         { id: 'Library', icon: '/icons/gicon1.svg', label: 'Library' },
         { id: 'Memories', icon: '/icons/gicon2.svg', label: 'Memories' },
-        { id: 'Places', icon: '/icons/file.svg', label: 'Places' },
+        { id: 'Closed ones', icon: '/icons/gicon5.svg', label: 'Closed ones' },
         { id: 'People', icon: '/icons/gicon4.svg', label: 'People' },
         { id: 'Favorites', icon: '/icons/gicon5.svg', label: 'Favorites' },
     ];
@@ -462,7 +458,7 @@ const Photos = () => {
                                     animate="visible"
                                     exit="hidden"
                                     ref={contentRef} 
-                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-fit pb-12 will-change-transform"
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-fit pb-32 will-change-transform"
                                 >
                                     {filteredImages.map((img) => (
                                         <motion.div
