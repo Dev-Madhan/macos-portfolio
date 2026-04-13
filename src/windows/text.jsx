@@ -1,4 +1,6 @@
+import '@fontsource-variable/bricolage-grotesque'
 import React, { useState } from 'react';
+
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';
 import { FileText, Share, Type, Copy, Check, X } from 'lucide-react';

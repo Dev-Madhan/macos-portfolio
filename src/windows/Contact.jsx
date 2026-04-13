@@ -1,3 +1,4 @@
+import '@fontsource-variable/mona-sans';
 import React from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';

@@ -1,11 +1,14 @@
 import React, { Suspense, lazy } from 'react'
 import gsap from 'gsap';
-import { Dock, Navbar, Welcome, Home, LockScreen } from '#components'
+import { LockScreen } from '#components'
+const Dock = lazy(() => import('#components/Dock'));
+const Navbar = lazy(() => import('#components/Navbar'));
+const Welcome = lazy(() => import('#components/Welcome'));
+const Home = lazy(() => import('#components/Home'));
+
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion'
-import { Draggable } from 'gsap/Draggable';
+import { motion } from 'framer-motion'
 import useWindowStore from '#store/window';
-gsap.registerPlugin(Draggable);
 
 // Lazy-load heavy window applications to strictly reduce main thread blocking
 const Terminal = lazy(() => import('#windows/Terminal'));
@@ -43,7 +46,9 @@ const App = () => {
   return (
     <main id="main-screen">
       <LockScreen />
-      <Navbar />
+      <Suspense fallback={null}>
+        <Navbar />
+      </Suspense>
       <motion.div
         className="size-full absolute inset-0"
         initial="initial"
@@ -54,10 +59,13 @@ const App = () => {
         }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Home />
-        <Welcome />
+        <Suspense fallback={null}>
+           {!isLocked && <><Home /><Welcome /></>}
+        </Suspense>
       </motion.div>
-      <Dock />
+      <Suspense fallback={null}>
+        <Dock />
+      </Suspense>
 
       <div className='hidden md:block'>
           <Suspense fallback={null}>

@@ -1,3 +1,4 @@
+import '@fontsource-variable/outfit';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';

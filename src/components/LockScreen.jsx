@@ -47,6 +47,7 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
       {/* Background Image with separate layer to animate scale without clipping items */}
       <div 
         className="login-bg absolute inset-0 bg-[url('/images/wallpaper.jpg')] bg-cover bg-center" 
+        fetchpriority="high"
       />
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px] pointer-events-none" />
@@ -82,6 +83,7 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
           src="/images/profile-pic.jpg"
           alt="Sruthika"
           className="w-24 h-24 rounded-full object-cover object-top border-2 border-white/20 shadow-2xl mb-5"
+          fetchpriority="high"
         />
         <h3 className="text-xl font-medium tracking-wide mb-6">Sruthika</h3>
 

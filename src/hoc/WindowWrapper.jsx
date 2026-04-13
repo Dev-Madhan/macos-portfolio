@@ -5,6 +5,8 @@ import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import { useGSAP } from '@gsap/react';
 
+gsap.registerPlugin(Draggable);
+
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
         const { isOpen, data, zIndex } = useWindowStore((state) => state.windows[windowKey]);
