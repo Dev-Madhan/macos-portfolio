@@ -11,7 +11,6 @@ import {
   List, 
   Columns, 
   Square, 
-  Search, 
   Share, 
   Tag, 
   MoreHorizontal,
@@ -21,6 +20,7 @@ import {
   Briefcase,
   FileText
 } from 'lucide-react';
+import { SearchIcon } from '@/components/ui/search';
 import {
   Sidebar,
   SidebarContent,
@@ -273,7 +273,7 @@ const Finder = ({ item }) => {
                     </AnimatePresence>
                     <div className="relative group">
                         <div className="absolute inset-y-0 left-2.5 flex items-center pointer-events-none">
-                            <Search size={13} className={`${searchQuery ? 'text-blue-500' : 'text-gray-400'} transition-colors`} />
+                            <SearchIcon size={13} className={`${searchQuery ? 'text-blue-500' : 'text-gray-400'} transition-colors`} />
                         </div>
                         <input
                             type="text"
@@ -508,7 +508,7 @@ const Finder = ({ item }) => {
                             )
                         ) : (
                             <div className="flex-center flex-col h-full gap-4 text-gray-300">
-                                <Search size={48} strokeWidth={1} />
+                                <SearchIcon size={48} />
                                 <p className="text-sm font-medium">No results found for "{searchQuery}"</p>
                             </div>
                         )}

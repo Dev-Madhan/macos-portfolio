@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
-import { Search, Folder, FileText, Globe, X, Clock, ArrowRight, ArrowUp, ArrowDown, CornerDownLeft, Command } from 'lucide-react';
+import { Folder, FileText, Globe, X, Clock, ArrowRight, ArrowUp, ArrowDown, CornerDownLeft, Command } from 'lucide-react';
+import { SearchIcon } from '@/components/ui/search';
 import useWindowStore from '#store/window';
 import { projects, locations } from '#constants';
 import { navLinks, dockApps } from '#constants';
@@ -44,7 +45,7 @@ const ResultIcon = ({ item }) => {
       </div>
     );
   }
-  const Icon = item.icon || Search;
+  const Icon = item.icon || SearchIcon;
   const colors = {
     nav:     'spotlight-icon-nav',
     app:     'spotlight-icon-app',
@@ -53,7 +54,7 @@ const ResultIcon = ({ item }) => {
   };
   return (
     <div className={`spotlight-icon-wrap ${colors[item.type] || 'spotlight-icon-nav'}`}>
-      <Icon size={15} strokeWidth={2.5} />
+      <SearchIcon size={15} />
     </div>
   );
 };
@@ -275,7 +276,7 @@ const SpotlightSearch = ({ isOpen, onClose }) => {
           >
             {/* Search Bar */}
             <div className="spotlight-bar">
-              <Search size={22} strokeWidth={2.2} className="spotlight-search-icon" />
+              <SearchIcon size={22} className="spotlight-search-icon" />
               <input
                 ref={inputRef}
                 type="text"
@@ -353,7 +354,7 @@ const SpotlightSearch = ({ isOpen, onClose }) => {
                           </div>
                         ) : (
                           <div className="spotlight-prev-icon-wrap">
-                            {React.createElement(activeItem.icon || Search, { size: 40, strokeWidth: 1.5, className: 'spotlight-prev-icon' })}
+                            <SearchIcon size={40} className='spotlight-prev-icon' />
                           </div>
                         )}
 
@@ -380,7 +381,7 @@ const SpotlightSearch = ({ isOpen, onClose }) => {
                   exit={{ opacity: 0 }}
                   className="spotlight-empty"
                 >
-                  <Search size={28} strokeWidth={1.5} className="opacity-20" />
+                  <SearchIcon size={28} className="opacity-20" />
                   <p className="spotlight-empty-text">No results for "{query}"</p>
                   <p className="spotlight-empty-sub">Try searching for projects, skills, or apps</p>
                 </motion.div>
@@ -393,7 +394,7 @@ const SpotlightSearch = ({ isOpen, onClose }) => {
                   exit={{ opacity: 0 }}
                   className="spotlight-idle"
                 >
-                  <Search size={32} strokeWidth={1.2} className="spotlight-idle-icon" />
+                  <SearchIcon size={32} className="spotlight-idle-icon" />
                   <p className="spotlight-idle-text">Search Sruthika's Portfolio</p>
                   <div className="spotlight-hints">
                     <span className="spotlight-hint"><Command size={11} /> Space</span>

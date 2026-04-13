@@ -5,7 +5,6 @@ import useWindowStore from '#store/window';
 import { motion, AnimatePresence } from 'framer-motion';
 // import gsap from 'gsap'; 
 import { 
-  Search, 
   Mail,
   ChevronLeft,
   ChevronRight,
@@ -16,6 +15,7 @@ import {
   MoreHorizontal,
   Tag
 } from 'lucide-react';
+import { SearchIcon } from '@/components/ui/search';
 import { HeartIcon as Heart } from '../components/ui/heart';
 import {
   Sidebar,
@@ -361,7 +361,7 @@ const Photos = () => {
                     {/* Search Bar */}
                     <div className="relative group">
                         <div className="absolute inset-y-0 left-2.5 flex items-center pointer-events-none">
-                            <Search size={13} className={`${searchQuery ? 'text-blue-500' : 'text-gray-400'} transition-colors`} />
+                            <SearchIcon size={13} className={`${searchQuery ? 'text-blue-500' : 'text-gray-400'} transition-colors`} />
                         </div>
                         <input 
                             type="text" 
@@ -440,7 +440,7 @@ const Photos = () => {
                                         </>
                                     ) : searchQuery ? (
                                         <>
-                                            <Search size={48} strokeWidth={1} className="text-gray-300" />
+                                            <SearchIcon size={48} className="text-gray-300" />
                                             <p className="text-[13px] font-medium">No results found for "{searchQuery}"</p>
                                         </>
                                     ) : (

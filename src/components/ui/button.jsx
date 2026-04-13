@@ -20,6 +20,10 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        macos: 
+          "bg-[#007AFF] text-white border border-[#006BB3] shadow-[inset_0_1px_0_rgba(255,255,255,0.1),0_1px_2px_rgba(0,0,0,0.1)] hover:bg-[#0071E3] active:bg-[#005AB5] rounded-[7px] px-4 py-2 transition-all duration-150 text-[13px] font-semibold tracking-tight whitespace-nowrap",
+        macosOutline:
+          "bg-gray-100 text-[#333333] border border-gray-300 shadow-sm hover:bg-gray-200 active:bg-gray-300 rounded-[7px] px-4 py-2 transition-all duration-150 text-[13px] font-semibold tracking-tight whitespace-nowrap",
       },
       size: {
         default:

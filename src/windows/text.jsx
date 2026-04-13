@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';
-import { FileText, Share, Search, Type, Copy, Check, X } from 'lucide-react';
+import { FileText, Share, Type, Copy, Check, X } from 'lucide-react';
+import { SearchIcon } from '@/components/ui/search';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TextFile = () => {
@@ -82,7 +83,7 @@ const TextFile = () => {
                         onClick={() => { setShowSearch(!showSearch); if(showSearch) setSearchQuery(''); }}
                         className={`p-1.5 rounded-md transition-colors ${showSearch ? 'bg-gray-200 text-black' : 'hover:bg-gray-200'}`}
                     >
-                        <Search size={15} strokeWidth={2} />
+                        <SearchIcon size={15} strokeWidth={2} />
                     </button>
 
                     <AnimatePresence>
@@ -112,7 +113,7 @@ const TextFile = () => {
                     >
                         <div className="flex items-center justify-end px-4 py-2">
                             <div className="flex items-center w-full max-w-[240px] bg-white border border-gray-300/80 rounded-md px-2.5 py-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)] focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400/50 transition-all">
-                                <Search size={13} className="text-gray-400 mr-2 shrink-0" />
+                                <SearchIcon size={13} className="text-gray-400 mr-2 shrink-0" />
                                 <input 
                                     type="text"
                                     placeholder="Find in document"

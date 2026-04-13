@@ -1,8 +1,12 @@
-import { navLinks } from '#constants';
+import { navLinks, locations } from '#constants';
 import dayjs from 'dayjs';
 import React, { useState } from 'react';
 import useWindowStore from '#store/window';
-import { Search, Wifi, SlidersHorizontal, Bluetooth, Check, Lock, LogOut, Settings2 } from 'lucide-react';
+import { Bluetooth, Lock, LogOut } from 'lucide-react';
+import { WifiIcon } from '@/components/ui/wifi';
+import { SettingsIcon } from '@/components/ui/settings';
+import { SearchIcon } from '@/components/ui/search';
+import { CheckIcon } from '@/components/ui/check';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
 import { Switch } from '@/components/ui/switch';
@@ -15,7 +19,11 @@ const Navbar = () => {
   const { openWindow, lockScreen } = useWindowStore();
   const [activeMenu, setActiveMenu] = useState(null);
   const [wifiEnabled, setWifiEnabled] = useState(true);
+  const [bluetoothEnabled, setBluetoothEnabled] = useState(true);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
+
+  const toggleWifi = () => setWifiEnabled(!wifiEnabled);
+  const toggleBluetooth = () => setBluetoothEnabled(!bluetoothEnabled);
 
   const handleIconClick = (menu) => {
     if (menu === 'search') {
@@ -67,7 +75,7 @@ const Navbar = () => {
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'wifi' ? 'bg-white/30' : 'hover:bg-white/20'}`}
               aria-label="Wi-Fi Status"
             >
-              <Wifi size={15} className="opacity-95" strokeWidth={2.8} />
+              <WifiIcon size={15} className="opacity-95" />
             </li>
             <li 
               onClick={() => handleIconClick('user')}
@@ -85,14 +93,14 @@ const Navbar = () => {
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${spotlightOpen ? 'bg-white/30' : 'hover:bg-white/20'}`}
               aria-label="Spotlight Search"
             >
-              <Search size={15} className="opacity-95" strokeWidth={2.8} />
+              <SearchIcon size={15} className="opacity-95" />
             </li>
             <li 
               onClick={() => handleIconClick('settings')}
               className={`p-1.5 rounded-md transition-colors active:scale-90 cursor-pointer ${activeMenu === 'settings' ? 'bg-white/30' : 'hover:bg-white/20'}`}
               aria-label="Control Center"
             >
-              <SlidersHorizontal size={15} className="opacity-95" strokeWidth={2.8} />
+              <SettingsIcon size={15} className="opacity-95" />
             </li>
           </ul>
 
@@ -127,10 +135,10 @@ const Navbar = () => {
                       {/* Active */}
                       <div className="px-2 py-[7px] bg-white/10 backdrop-blur-sm text-white rounded-md flex justify-between items-center cursor-pointer border-2 border-white/15 shadow-sm">
                          <div className="flex items-center gap-2">
-                             <Wifi size={14} strokeWidth={2.5} className="opacity-80" />
+                             <WifiIcon size={14} className="opacity-80" />
                              <span className="text-[13px] font-semibold leading-tight">Sruthika's Network</span>
                          </div>
-                         <Check size={14} strokeWidth={3} className="text-white/80" />
+                         <CheckIcon size={14} className="text-white/80" />
                       </div>
                       
                       {/* Divider */}
@@ -139,13 +147,13 @@ const Navbar = () => {
                       {/* Other */}
                       <div className="px-2 py-[7px] hover:bg-white/10 rounded-md flex justify-between items-center cursor-pointer transition-colors group">
                          <div className="flex items-center gap-2">
-                             <Wifi size={14} className="opacity-40 group-hover:opacity-100" strokeWidth={2.5} />
+                             <WifiIcon size={14} className="opacity-40 group-hover:opacity-100" />
                              <span className="text-[13px] font-medium text-gray-300 group-hover:text-white leading-tight transition-colors">Workspace_5G</span>
                          </div>
                       </div>
                       <div className="px-2 py-[7px] hover:bg-white/10 rounded-md flex justify-between items-center cursor-pointer transition-colors group">
                          <div className="flex items-center gap-2">
-                             <Wifi size={14} className="opacity-40 group-hover:opacity-100" strokeWidth={2.5} />
+                             <WifiIcon size={14} className="opacity-40 group-hover:opacity-100" />
                              <span className="text-[13px] font-medium text-gray-300 group-hover:text-white leading-tight transition-colors">Design Studio</span>
                          </div>
                       </div>
@@ -183,7 +191,7 @@ const Navbar = () => {
                   {/* Action Buttons Section */}
                   <div className="w-full flex flex-col gap-0.5 mt-0.5">
                       {[
-                        { icon: Settings2, text: "System Settings...", action: () => {} },
+                        { icon: SettingsIcon, text: "System Settings...", action: () => { openWindow('finder', locations.about); setActiveMenu(null); } },
                         { icon: Lock, text: "Lock Screen", action: () => { lockScreen(); setActiveMenu(null); } }
                       ].map((item, idx) => (
                         <motion.div
@@ -224,6 +232,7 @@ const Navbar = () => {
                       >
                         <Button 
                            variant="ghost" 
+                           onClick={() => { lockScreen(); setActiveMenu(null); }}
                            className="w-full justify-start items-center gap-3 px-1.5 py-2 h-auto text-gray-200 hover:bg-white/10 hover:backdrop-blur-xl hover:text-white border-2 border-transparent hover:border-white/20 focus-visible:ring-0 group rounded-xl transition-colors duration-200"
                            onMouseEnter={(e) => {
                              gsap.to(e.currentTarget.querySelector('.menu-icon'), { 
@@ -257,27 +266,45 @@ const Navbar = () => {
                   <div className="flex flex-col gap-2 w-full">
                       {/* Wi-Fi Control Card */}
                       <div 
-                         className="bg-white/5 hover:bg-white/15 transition-all duration-150 rounded-2xl px-3.5 py-3 flex items-center gap-4 cursor-pointer border-2 border-white/5 hover:border-white/25 shadow-sm group active:bg-white/20 w-full h-auto min-h-[58px]"
+                         onClick={toggleWifi}
+                         className={cn(
+                           "bg-white/5 hover:bg-white/15 transition-all duration-150 rounded-2xl px-3.5 py-3 flex items-center gap-4 cursor-pointer border-2 border-white/5 hover:border-white/25 shadow-sm group active:bg-white/20 w-full h-auto min-h-[58px]",
+                           !wifiEnabled && "opacity-80"
+                         )}
                       >
-                          <div className="bg-[#0a84ff] rounded-full w-8 h-8 shrink-0 flex items-center justify-center shadow-lg shadow-[#0a84ff]/40 transition-all">
-                              <Wifi size={12} strokeWidth={2.8} className="text-white"/>
+                          <div className={cn(
+                            "rounded-full w-8 h-8 shrink-0 flex items-center justify-center transition-all duration-300",
+                            wifiEnabled ? "bg-[#0a84ff] shadow-lg shadow-[#0a84ff]/40" : "bg-white/20 shadow-none"
+                          )}>
+                              <WifiIcon size={12} className={cn("transition-colors", wifiEnabled ? "text-white" : "text-white/60")}/>
                           </div>
                           <div className="flex flex-col items-start min-w-0 flex-1">
                               <span className="text-[13px] font-bold tracking-tight text-white/90">Wi-Fi</span>
-                              <span className="text-[11px] text-white/50 font-bold leading-none mt-0.5 whitespace-nowrap truncate w-full text-left">Sruthika's Network</span>
+                              <span className="text-[11px] text-white/50 font-bold leading-none mt-0.5 whitespace-nowrap truncate w-full text-left">
+                                {wifiEnabled ? "Sruthika's Network" : "Off"}
+                              </span>
                           </div>
                       </div>
 
                       {/* Bluetooth Control Card */}
                       <div 
-                         className="bg-white/5 hover:bg-white/15 transition-all duration-150 rounded-2xl px-3.5 py-3 flex items-center gap-4 cursor-pointer border-2 border-white/5 hover:border-white/25 shadow-sm group active:bg-white/20 w-full h-auto min-h-[58px]"
+                         onClick={toggleBluetooth}
+                         className={cn(
+                           "bg-white/5 hover:bg-white/15 transition-all duration-150 rounded-2xl px-3.5 py-3 flex items-center gap-4 cursor-pointer border-2 border-white/5 hover:border-white/25 shadow-sm group active:bg-white/20 w-full h-auto min-h-[58px]",
+                           !bluetoothEnabled && "opacity-80"
+                         )}
                       >
-                          <div className="bg-[#0a84ff] rounded-full w-8 h-8 shrink-0 flex items-center justify-center shadow-lg shadow-[#0a84ff]/40 transition-all">
-                              <Bluetooth size={12} strokeWidth={2.8} className="text-white"/>
+                          <div className={cn(
+                            "rounded-full w-8 h-8 shrink-0 flex items-center justify-center transition-all duration-300",
+                            bluetoothEnabled ? "bg-[#0a84ff] shadow-lg shadow-[#0a84ff]/40" : "bg-white/20 shadow-none"
+                          )}>
+                              <Bluetooth size={12} strokeWidth={2.8} className={cn("transition-colors", bluetoothEnabled ? "text-white" : "text-white/60")}/>
                           </div>
                           <div className="flex flex-col items-start min-w-0 flex-1">
                               <span className="text-[13px] font-bold tracking-tight text-white/90">Bluetooth</span>
-                              <span className="text-[11px] text-white/50 font-bold leading-none mt-0.5 whitespace-nowrap truncate w-full text-left">On</span>
+                              <span className="text-[11px] text-white/50 font-bold leading-none mt-0.5 whitespace-nowrap truncate w-full text-left">
+                                {bluetoothEnabled ? "On" : "Off"}
+                              </span>
                           </div>
                       </div>
                   </div>
