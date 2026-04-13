@@ -35,6 +35,11 @@ const LazyWindow = ({ id, Component }) => {
 const App = () => {
   const isLocked = useWindowStore((state) => state.isLocked);
 
+  React.useEffect(() => {
+    const preboot = document.getElementById("preboot");
+    if (preboot) preboot.remove();
+  }, []);
+
   return (
     <main id="main-screen">
       <LockScreen />

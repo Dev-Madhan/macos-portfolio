@@ -13,20 +13,22 @@ const LoginPanel = ({ onSubmit, inputRef, password, setPassword, time }) => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Delay GSAP animations to sync with the framer-motion fade-in (1s)
+      // so elements only start animating once they're visible
       gsap.from(".login-card-anim", {
         opacity: 0,
-        y: 30,
-        filter: "blur(15px)",
-        duration: 1.5,
+        y: 24,
+        filter: "blur(12px)",
+        duration: 1.8,
         ease: "power3.out",
-        delay: 0.2,
+        delay: 0.5,
         clearProps: "all"
       });
       
       gsap.from(".login-bg", {
-        scale: 1.1,
-        filter: "blur(20px)",
-        duration: 1.5,
+        scale: 1.08,
+        filter: "blur(18px)",
+        duration: 2,
         ease: "power2.out"
       });
     }, containerRef);
@@ -163,7 +165,7 @@ const LockScreen = () => {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0, scale: 1.05, filter: "blur(12px)" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none"
+            className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none bg-black"
           >
             {/* Boot animation */}
             <AnimatePresence>
@@ -172,7 +174,7 @@ const LockScreen = () => {
                   key="boot-anim"
                   initial={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1.4, ease: "easeInOut" }}
                   className="absolute inset-0 bg-black flex flex-col items-center justify-center z-10 text-white"
                 >
                   <svg
@@ -187,8 +189,8 @@ const LockScreen = () => {
                       className="h-full bg-white rounded-full origin-left"
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
-                      transition={{ duration: 2.4, ease: [0.25, 0.1, 0.25, 1] }}
-                      onAnimationComplete={() => setTimeout(() => setBooting(false), 350)}
+                      transition={{ duration: 1.6, ease: [0.4, 0, 0.55, 1] }}
+                      onAnimationComplete={() => setBooting(false)}
                     />
                   </div>
                 </motion.div>
@@ -203,7 +205,7 @@ const LockScreen = () => {
                   className="absolute inset-0"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <LoginPanel
                     onSubmit={handleBootUnlock}
