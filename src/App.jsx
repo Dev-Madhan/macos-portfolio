@@ -38,7 +38,11 @@ const App = () => {
 
   React.useEffect(() => {
     const preboot = document.getElementById("preboot");
-    if (preboot) preboot.remove();
+    if (preboot) {
+      preboot.style.transition = "opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1)";
+      preboot.style.opacity = "0";
+      setTimeout(() => preboot.remove(), 1200);
+    }
   }, []);
 
   return (

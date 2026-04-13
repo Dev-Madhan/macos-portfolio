@@ -169,15 +169,15 @@ const LockScreen = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0 z-[9999] overflow-hidden select-none touch-none bg-black"
           >
-            {/* Boot animation */}
+            {/* Combined Transition: Boot -> Login */}
             <AnimatePresence>
-              {booting && (
+              {booting ? (
                 <motion.div
                   key="boot-anim"
                   initial={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 1.4, ease: "easeInOut" }}
-                  className="absolute inset-0 bg-black flex flex-col items-center justify-center z-10 text-white"
+                  exit={{ opacity: 0, scale: 0.98, filter: "blur(10px)" }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                  className="absolute inset-0 bg-black flex flex-col items-center justify-center z-[20] text-white"
                 >
                   <svg
                     className="w-[80px] h-[80px] mb-16 fill-white"
@@ -190,24 +190,23 @@ const LockScreen = () => {
                     <motion.div
                       className="h-full bg-white rounded-full origin-left"
                       initial={{ scaleX: 0 }}
-                      animate={{ scaleX: 1 }}
-                      transition={{ duration: 1.6, ease: [0.4, 0, 0.55, 1] }}
+                      animate={{ scaleX: [0, 0.2, 0.25, 0.65, 0.7, 0.92, 1] }}
+                      transition={{ 
+                        duration: 3.2, 
+                        times: [0, 0.15, 0.35, 0.55, 0.75, 0.9, 1],
+                        ease: "easeInOut"
+                      }}
                       onAnimationComplete={() => setBooting(false)}
                     />
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Login after boot */}
-            <AnimatePresence>
-              {!booting && (
+              ) : (
                 <motion.div
                   key="boot-login"
-                  className="absolute inset-0"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0 z-[10]"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <LoginPanel
                     onSubmit={handleBootUnlock}

@@ -29,15 +29,18 @@
       }
       @keyframes bootProgress {
         0% { width: 0%; }
-        20% { width: 8%; }
-        40% { width: 45%; }
-        100% { width: 92%; }
+        15% { width: 20%; }
+        35% { width: 25%; } /* Soft crawl */
+        55% { width: 65%; } /* Smooth push */
+        75% { width: 70%; } /* Soft crawl */
+        90% { width: 92%; } /* Final push */
+        100% { width: 100%; }
       }
       .boot-bar {
         height: 100%;
         background: white;
         border-radius: 9999px;
-        animation: bootProgress 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: bootProgress 3.2s ease-in-out forwards;
       }
     </style>
     <script>
