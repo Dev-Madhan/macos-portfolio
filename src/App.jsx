@@ -1,10 +1,8 @@
 import React, { Suspense, lazy } from 'react'
 import gsap from 'gsap';
-import { LockScreen } from '#components'
+import { LockScreen, Welcome, Home } from '#components'
 const Dock = lazy(() => import('#components/Dock'));
 const Navbar = lazy(() => import('#components/Navbar'));
-const Welcome = lazy(() => import('#components/Welcome'));
-const Home = lazy(() => import('#components/Home'));
 
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
@@ -59,9 +57,8 @@ const App = () => {
         }}
         transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
       >
-        <Suspense fallback={null}>
-           {!isLocked && <><Home /><Welcome /></>}
-        </Suspense>
+        <Home />
+        <Welcome />
       </motion.div>
       <Suspense fallback={null}>
         <Dock />
