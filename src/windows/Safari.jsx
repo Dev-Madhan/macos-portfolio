@@ -2,8 +2,8 @@ import '@fontsource-variable/outfit';
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import WindowWrapper from '#hoc/WindowWrapper';
 import useWindowStore from '#store/window';
-import { ChevronLeft, ChevronRight, Share, LayoutGrid, List, RotateCw, Lock, BarChart2, Video, AudioLines, Globe, Clock, ExternalLink, Star, ChevronDown, ChevronRight as ChevronRightSm, Music } from 'lucide-react';
-import { SearchIcon } from '@/components/ui/search';
+import { ChevronLeft, ChevronRight, Share, LayoutGrid, List, RotateCw, Lock, BarChart2, Video, AudioLines, Globe, Clock, ExternalLink, Star, ChevronDown, ChevronRight as ChevronRightSm, Music, Search } from 'lucide-react';
+
 import { SettingsIcon } from '@/components/ui/settings';
 import { motion, AnimatePresence } from 'framer-motion';
 import gsap from 'gsap';
@@ -14,7 +14,7 @@ const allActionsSample = [
     {
         id: "1",
         label: "What is your UX design process?",
-        icon: <SearchIcon className="h-4 w-4 text-[#4285F4]" />,
+        icon: <Search className="h-4 w-4 text-[#4285F4]" />,
         description: "Discovery, Strategy, & Visuals",
         short: "Q1",
         end: "Process",
@@ -215,7 +215,7 @@ const SearchResultsPage = ({ action, onBack, onNavigate }) => {
                         className="flex items-center gap-2 flex-1 max-w-[600px] h-[44px] bg-white border-2 border-[#dfe1e5] rounded-[22px] px-4 hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)] hover:border-gray-300 transition-all cursor-pointer"
                         onClick={onBack}
                     >
-                        <SearchIcon size={16} className="text-[#4285F4] shrink-0" />
+                        <Search size={16} className="text-[#4285F4] shrink-0" />
                         <span className="text-[15px] text-[#202124] font-mona truncate">{action.label}</span>
                         <div className="ml-auto flex items-center gap-2 shrink-0">
                             <div className="w-px h-5 bg-gray-200" />
@@ -739,7 +739,7 @@ const SafariWindow = () => {
                                         >
                                             <div className="flex items-center min-h-[46px] px-4.5">
                                                 <div className="flex items-center justify-center p-3 text-[#9aa0a6] transition-colors group-focus-within:text-[#4285F4]">
-                                                    <SearchIcon size={20} />
+                                                    <Search size={20} />
                                                 </div>
                                                 <div className="flex-1 relative flex items-center min-h-[46px]">
                                                     <input
