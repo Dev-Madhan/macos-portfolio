@@ -45,7 +45,7 @@ body {
 }
 
 @layer base {
-  main {
+  #main-screen {
     @apply w-dvw h-dvh overflow-hidden;
   }
 

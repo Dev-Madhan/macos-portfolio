@@ -458,7 +458,7 @@ const Photos = () => {
                                     animate="visible"
                                     exit="hidden"
                                     ref={contentRef} 
-                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-fit pb-32 will-change-transform"
+                                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-fit pb-12 will-change-transform"
                                 >
                                     {filteredImages.map((img) => (
                                         <motion.div
@@ -507,7 +507,7 @@ const Photos = () => {
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -15 }}
                                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                                    className="flex flex-col gap-1 pb-32 will-change-transform"
+                                    className="flex flex-col gap-1 pb-12 will-change-transform"
                                 >
                                     <div className="flex border-b border-gray-100 text-[10px] font-semibold text-gray-400/80 uppercase tracking-widest px-4 py-2.5 bg-gray-50/30 rounded-t-lg">
                                         <div className="w-[8%] text-center">Fav</div>
